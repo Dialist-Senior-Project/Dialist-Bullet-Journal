@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "905089000607",
+    "project_id": "senior-project-920be",
+    "storage_bucket": "senior-project-920be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905089000607:android:a1dc740b49881d4fe4eeaa",
+        "android_client_info": {
+          "package_name": "com.example.dialist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905089000607-s3bm68gq0uasosflk2f5nb8joms9cu0k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dialist",
+            "certificate_hash": "94a10eeef9eb0e3786a427855ead02bec10c4c89"
+          }
+        },
+        {
+          "client_id": "905089000607-24eth3c3n2sotkjkopunki63rcda23s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEZ5yBGDUPDTfFW2hniHklyaZCupxXS80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905089000607-24eth3c3n2sotkjkopunki63rcda23s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
