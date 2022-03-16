@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/SignIn_Button"
+        android:id="@+id/signInButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="284dp"
