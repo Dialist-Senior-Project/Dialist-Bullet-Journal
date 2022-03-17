@@ -3,6 +3,7 @@ package com.example.dialist;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,6 +19,8 @@ public class First extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<Template> templateArrayList;
     private TemplateAdapter templateAdapter;
+
+    int templatecnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,15 @@ public class First extends AppCompatActivity implements View.OnClickListener {
         recyclerView.setAdapter(templateAdapter);
 
         Button button = findViewById(R.id.Addtemplate);
+        ImageButton imagebuttom = findViewById(R.id.imageButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Template newTodo = new Template("일기장");
+                Template newTodo = new Template("template");
                 templateArrayList.add(newTodo);
                 templateAdapter.notifyDataSetChanged();
+                templatecnt++;
+
             }
         });
     }

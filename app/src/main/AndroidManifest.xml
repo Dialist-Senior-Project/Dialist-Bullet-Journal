@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist">
         <activity
+            android:name=".SignUp"
+            android:exported="false" />
+        <activity
             android:name=".First"
             android:exported="false" />
         <activity

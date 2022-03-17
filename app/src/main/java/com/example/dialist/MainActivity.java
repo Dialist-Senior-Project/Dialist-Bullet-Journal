@@ -2,8 +2,11 @@ package com.example.dialist;import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -18,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth = null;
     private GoogleSignInClient mGoogleSignInClient;
@@ -28,6 +33,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //회원가입 밑줄
+        TextView textView = (TextView)findViewById(R.id.textView);
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        //회원가입 클릭 이벤트
+        textView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), SignUp.class);
+                startActivity(intent);
+            }
+        });
 
         signInButton = findViewById(R.id.signInButton);
 

@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/Dialist/app/src/main/res/layout/activity_first.xml" value="0.2" />
-        <entry key="..\:/AndroidStudioProjects/Dialist/app/src/main/res/layout/activity_main.xml" value="0.16388044579533942" />
+        <entry key="..\:/AndroidStudioProjects/Dialist/app/src/main/res/layout/activity_main.xml" value="0.75" />
+        <entry key="..\:/AndroidStudioProjects/Dialist/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/Dialist/app/src/main/res/layout/recyclerview_template_item.xml" value="0.20199275362318841" />
       </map>
     </option>
