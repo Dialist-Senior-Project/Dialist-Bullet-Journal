@@ -39,14 +39,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //회원가입 밑줄
-        TextView textView = (TextView)findViewById(R.id.textView);
-        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        TextView signup = (TextView)findViewById(R.id.signup);
+        signup.setPaintFlags(signup.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        //비밀번호 찾기 밑줄
+        TextView passwordreset = (TextView)findViewById(R.id.passwordreset);
+        passwordreset.setPaintFlags(signup.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         //회원가입 클릭 이벤트
-        textView.setOnClickListener(new View.OnClickListener(){
+        signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplication(), SignUp.class);
+                startActivity(intent);
+            }
+        });
+
+        //비밀번호 찾기 클릭 이벤트
+        passwordreset.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), PasswordReset.class);
                 startActivity(intent);
             }
         });
