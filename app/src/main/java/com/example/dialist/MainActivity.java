@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
     private SignInButton signInButton;
+    private  FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        signInButton = findViewById(R.id.signInButton);
+        //로그인 클릭 이벤트
+        EditText editTextID = (EditText)findViewById(R.id.editTextID);
+        EditText editTextPassword = (EditText)findViewById(R.id.editTextPassword);
+        Button signinButton = (Button)findViewById(R.id.signinButton);
+        signinButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                switch(view.getId()){
+                    case R.id.signinButton:
+                        signIn(editTextID.getText().toString(), editTextPassword.getText().toString());
+                        break;
+                }
+            }
+        });
+
+        signInButton = findViewById(R.id.GooglesignInButton);
 
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
@@ -64,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                GooglesignIn();
             }
         });
     }
     // [START signin]
-    private void signIn() {
+    private void GooglesignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -113,5 +132,23 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    private void signIn(String id, String password){
+        mAuth.signInWithEmailAndPassword(id, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            mAuth.addAuthStateListener(firebaseAuthListener);
+                            Intent intent = new Intent(getApplication(), First.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                            Toast.makeText(MainActivity.this, "아이디 또는 비밀번호 틀림", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
