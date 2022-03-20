@@ -1,9 +1,9 @@
 package com.example.dialist;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,20 +13,26 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-
-public class First extends AppCompatActivity implements View.OnClickListener {
+public class First extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     ActionBar actionBar;
 
+    String email;
+    public static Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+
+        //MainActivity에서 email 받아오기
+        Intent intent = getIntent();
+        email = intent.getExtras().getString("email");
+
+        mContext = this;
 
         // 툴바
         toolbar = findViewById(R.id.toolbar);
@@ -44,32 +50,32 @@ public class First extends AppCompatActivity implements View.OnClickListener {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //item.setChecked(true);
-                drawerLayout.closeDrawers();
+                switch(item.getItemId()){
+                    case R.id.nav_1: // 비밀번호 변경
+                        Intent intent1 = new Intent(getApplication(), PasswordReset.class);
+                        startActivity(intent1);
+                        drawerLayout.closeDrawers();
+                        return true;
+                    case R.id.nav_2: // 로그아웃
+                        Intent intent2 = new Intent(getApplication(), Really_Delete_email.class);
+                        intent2.putExtra("deleteorlogout", "logout");
+                        startActivity(intent2);
+                        return true;
+                    case R.id.nav_3: // 서비스 약관
+                        drawerLayout.closeDrawers();
+                        return true;
+                    case R.id.nav_4: // 리뷰 남기기
+                        drawerLayout.closeDrawers();
+                        return true;
+                    case R.id.nav_5: // 계정 삭제
+                        Intent intent3 = new Intent(First.this, delete_email_enter_password.class);
+                        intent3.putExtra("email", email);
+                        startActivity(intent3);
+                        return true;
+                }
                 return true;
             }
         });
-    }
-
-    private void signOut() {
-        FirebaseAuth.getInstance().signOut();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.nav_1:
-                break;
-            case R.id.nav_2: // 로그아웃
-                signOut();
-                finishAffinity();
-                break;
-            case R.id.nav_3:
-                break;
-            case R.id.nav_4:
-                break;
-            case R.id.nav_5:
-                break;
-        }
     }
 
     private void displayMessage(String message) {
