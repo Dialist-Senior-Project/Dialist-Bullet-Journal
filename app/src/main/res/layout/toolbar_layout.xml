@@ -1,61 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
     android:background="#ffffff"
     android:elevation="1dp"
+    app:contentInsetStart="0dp"
     android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <ImageView
-        android:id="@+id/iv_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_menu" />
-    <ImageView
-        android:id="@+id/iv_editmode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_editmode" />
-    <ImageView
-        android:id="@+id/iv_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_share" />
-
+    <!-- basic -->
     <ImageView
         android:id="@+id/iv_bookmark"
+        android:onClick="setBookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="left"
+        android:visibility="visible"
         android:src="@drawable/ic_bookmark" />
     <ImageView
         android:id="@+id/iv_star"
+        android:onClick="setStar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="left"
+        android:visibility="visible"
         android:src="@drawable/ic_star" />
+
+    <!-- readmode -->
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:onClick="showMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="right"
+        android:visibility="visible"
+        android:src="@drawable/ic_menu" />
+    <ImageView
+        android:id="@+id/iv_editmode"
+        android:onClick="setEditMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="right"
+        android:visibility="visible"
+        android:src="@drawable/ic_editmode" />
+    <ImageView
+        android:id="@+id/iv_share"
+        android:onClick="doSharing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="right"
+        android:visibility="visible"
+        android:src="@drawable/ic_share" />
+
+
     <ImageView
         android:id="@+id/iv_search"
+        android:onClick="doSearching"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="left"
+        android:visibility="visible"
         android:src="@drawable/ic_search" />
+    <EditText
+        android:id="@+id/editText"
+        android:onClick="setEditText"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="#efefef"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="left"
+        android:visibility="visible"/>
+
+    <!-- editmode -->
+    <ImageView
+        android:id="@+id/iv_editoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="right"
+        android:visibility="gone"
+        android:src="@drawable/ic_editoff" />
+    <ImageView
+        android:id="@+id/iv_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="right"
+        android:visibility="gone"
+        android:src="@drawable/ic_add" />
+    <ImageView
+        android:id="@+id/iv_allpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="right"
+        android:visibility="gone"
+        android:src="@drawable/ic_allpage" />
 </androidx.appcompat.widget.Toolbar>

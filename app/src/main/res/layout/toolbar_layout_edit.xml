@@ -17,31 +17,7 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="right"
         android:src="@drawable/ic_menu" />
-    <ImageView
-        android:id="@+id/iv_editoff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_editoff" />
 
-    <ImageView
-        android:id="@+id/iv_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_add" />
-    <ImageView
-        android:id="@+id/iv_allpage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_allpage" />
 
     <ImageView
         android:id="@+id/iv_bookmark"
