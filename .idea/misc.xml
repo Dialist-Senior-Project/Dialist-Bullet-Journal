@@ -10,19 +10,24 @@
         <entry key="..\:/AndroidStudioProjects/Dialist/app/src/main/res/layout/recyclerview_template_item.xml" value="0.20199275362318841" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/drawable/ic_add.xml" value="0.2315" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/drawable/ic_addd.xml" value="0.197" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/drawable/ic_back.xml" value="0.1405" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/drawable/ic_close.xml" value="0.2315" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/drawable/ic_menu.xml" value="0.1" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/drawable/rounded_edit.xml" value="0.197" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_delete_email_enter_password.xml" value="0.13994565217391305" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_drawer.xml" value="0.25" />
-        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_first.xml" value="0.14" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_first.xml" value="0.22" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_password_reset.xml" value="0.1" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_really_delete_email.xml" value="0.26510416666666664" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_sign_up.xml" value="0.18568840579710144" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/activity_store.xml" value="0.26875" />
-        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/drawer_layout.xml" value="0.33" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/drawer_layout.xml" value="0.1" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/recyclerview_template_item.xml" value="0.18206521739130435" />
-        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/toolbar_layout.xml" value="0.33" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/toolbar_layout.xml" value="0.1" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/layout/toolbar_layout_edit.xml" value="0.33" />
-        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/menu/drawer_menu.xml" value="0.1" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/menu/actionbar_menu.xml" value="0.1" />
+        <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/menu/drawer_menu.xml" value="0.25" />
         <entry key="..\:/Users/82107/AndroidStudioProjects/BulletJournal/app/src/main/res/menu/toolbar_menu.xml" value="0.25" />
       </map>
     </option>
