@@ -85,4 +85,33 @@
         android:layout_marginBottom="5dp"
         android:layout_gravity="start"
         android:visibility="visible"/>
+
+    <!-- editmode -->
+    <ImageView
+        android:id="@+id/ab_editoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        android:src="@drawable/ic_editoff" />
+    <ImageView
+        android:id="@+id/ab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        android:src="@drawable/ic_add" />
+    <ImageView
+        android:id="@+id/ab_allpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        android:src="@drawable/ic_allpage" />
 </androidx.appcompat.widget.Toolbar>

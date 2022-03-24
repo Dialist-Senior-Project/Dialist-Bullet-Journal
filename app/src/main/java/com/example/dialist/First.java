@@ -6,9 +6,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.content.Context;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -125,8 +122,16 @@ public class First extends AppCompatActivity {
         });
 
         (findViewById(R.id.ab_editmode)).setOnClickListener(view -> {
-            Intent edit_intent = new Intent(getApplicationContext(), FirstEdit.class);
-            startActivity(edit_intent);
+
+            findViewById(R.id.ab_editoff).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_add).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_allpage).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.ab_menu).setEnabled(false);
+            findViewById(R.id.ab_editText).setVisibility(View.GONE);
+            findViewById(R.id.ab_search).setVisibility(View.GONE);
+            findViewById(R.id.ab_editmode).setVisibility(View.GONE);
+            findViewById(R.id.ab_share).setVisibility(View.GONE);
         });
         /*
         (findViewById(R.id.ab_share)).setOnClickListener(view -> {
@@ -139,10 +144,20 @@ public class First extends AppCompatActivity {
         });
 
         // editmode
-        /*
         (findViewById(R.id.ab_editoff)).setOnClickListener(view -> {
+            findViewById(R.id.ab_editoff).setVisibility(View.GONE);
+            findViewById(R.id.ab_add).setVisibility(View.GONE);
+            findViewById(R.id.ab_allpage).setVisibility(View.GONE);
+
+            findViewById(R.id.ab_menu).setEnabled(true);
+            findViewById(R.id.ab_editText).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_search).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_editmode).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_share).setVisibility(View.VISIBLE);
 
         });
+
+        /*
         (findViewById(R.id.ab_add)).setOnClickListener(view -> {
 
         });
