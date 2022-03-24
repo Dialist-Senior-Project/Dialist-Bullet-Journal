@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/const_layout"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/first_layout"
     tools:context=".First">
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -23,16 +22,7 @@
             <include layout="@layout/toolbar_layout"/>
         </LinearLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:id="@+id/navigationView"
-            android:fitsSystemWindows="true"
-            android:layout_gravity="right"
-            app:headerLayout="@layout/drawer_layout"
-            app:menu="@menu/drawer_menu">
-
-        </com.google.android.material.navigation.NavigationView>
+        <include layout="@layout/drawerlayout"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

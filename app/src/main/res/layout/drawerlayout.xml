@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="right"
+    android:background="#FFFFFF"
+    android:elevation="1dp">
+
+    <!-- 설정 -->
+    <ImageView
+        android:id="@+id/dw_back"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintEnd_toEndOf="@+id/dw_thema"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dw_thema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="108dp"
+        android:text="테마"
+        android:textColor="#000000"
+        android:textSize="6pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/dw_thema1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:src="@drawable/img_thema1"
+        app:layout_constraintEnd_toStartOf="@+id/dw_thema2"
+        app:layout_constraintTop_toTopOf="@+id/dw_thema2" />
+
+    <ImageView
+        android:id="@+id/dw_thema2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/img_thema2"
+        app:layout_constraintEnd_toStartOf="@+id/dw_themaStore"
+        app:layout_constraintTop_toTopOf="@+id/dw_themaStore" />
+
+    <ImageView
+        android:id="@+id/dw_themaStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/img_others"
+        app:layout_constraintBottom_toTopOf="@+id/dw_fontStore"
+        app:layout_constraintStart_toStartOf="@+id/dw_fontStore" />
+
+    <ImageView
+        android:id="@+id/dw_fontStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="2dp"
+        android:src="@drawable/img_others"
+        app:layout_constraintBottom_toBottomOf="@+id/dw_seekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dw_tv_font" />
+
+    <TextView
+        android:id="@+id/dw_tv_font"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="28dp"
+        android:text="시스템 설정"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/dw_fontStore"
+        app:layout_constraintEnd_toStartOf="@+id/dw_fontStore"
+        app:layout_constraintStart_toEndOf="@+id/dw_font"
+        app:layout_constraintTop_toBottomOf="@+id/dw_thema1" />
+
+    <SeekBar
+        android:id="@+id/dw_seekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="105dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="89dp"
+        android:max="10"
+        android:progress="3"
+        app:layout_constraintBottom_toBottomOf="@+id/dw_mode"
+        app:layout_constraintEnd_toEndOf="@+id/dw_fontStore"
+        app:layout_constraintStart_toStartOf="@+id/dw_font"
+        app:layout_constraintTop_toTopOf="@+id/dw_thema" />
+
+    <TextView
+        android:id="@+id/dw_font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="40dp"
+        android:text="글꼴"
+        android:textColor="#000000"
+        android:textSize="6pt"
+        app:layout_constraintBaseline_toBaselineOf="@+id/dw_tv_font"
+        app:layout_constraintEnd_toStartOf="@+id/dw_tv_font"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/dw_tv_lang"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="68dp"
+        android:text="Korean"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/dw_switch"
+        app:layout_constraintEnd_toEndOf="@+id/dw_thema2"
+        app:layout_constraintStart_toStartOf="@+id/dw_light"
+        app:layout_constraintTop_toTopOf="@+id/dw_fontStore" />
+
+    <TextView
+        android:id="@+id/dw_lang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:text="언어"
+        android:textColor="#000000"
+        android:textSize="6pt"
+        app:layout_constraintBaseline_toBaselineOf="@+id/dw_tv_lang"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/dw_switch"
+        android:layout_width="0dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="72dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dw_changePwd"
+        app:layout_constraintEnd_toStartOf="@+id/dw_darkmode"
+        app:layout_constraintStart_toEndOf="@+id/dw_light"
+        app:layout_constraintTop_toBottomOf="@+id/dw_seekBar" />
+
+    <TextView
+        android:id="@+id/dw_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="27dp"
+        android:text="모드"
+        android:textColor="#000000"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toTopOf="@+id/dw_changePwd"
+        app:layout_constraintEnd_toStartOf="@+id/dw_light"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/dw_light"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_lightmode"
+        app:layout_constraintBottom_toBottomOf="@+id/dw_switch"
+        app:layout_constraintEnd_toStartOf="@+id/dw_switch"
+        app:layout_constraintStart_toEndOf="@+id/dw_mode"
+        app:layout_constraintTop_toTopOf="@+id/dw_switch" />
+
+    <ImageView
+        android:id="@+id/dw_darkmode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="67dp"
+        android:src="@drawable/ic_darkmode"
+        app:layout_constraintBottom_toBottomOf="@+id/dw_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dw_switch"
+        app:layout_constraintTop_toTopOf="@+id/dw_switch" />
+
+    <!-- 메뉴 -->
+    <LinearLayout
+        android:id="@+id/dw_changePwd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/dw_tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 변경"
+            android:textColor="#000000"
+            android:textSize="6pt"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="394dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dw_logout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dw_changePwd">
+
+        <TextView
+            android:id="@+id/dw_tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그아웃"
+            android:textColor="#000000"
+            android:textSize="6pt"
+            tools:layout_editor_absoluteX="46dp"
+            tools:layout_editor_absoluteY="455dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dw_terms"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dw_logout">
+
+        <TextView
+
+            android:id="@+id/dw_tv_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="서비스 약관"
+            android:textColor="#000000"
+            android:textSize="6pt"
+            tools:layout_editor_absoluteX="94dp"
+            tools:layout_editor_absoluteY="514dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dw_review"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="59dp"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dw_terms">
+
+        <TextView
+            android:id="@+id/dw_tv_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="리뷰 남기기"
+            android:textColor="#000000"
+            android:textSize="6pt"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="320dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dw_deleteAcc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dw_review">
+
+        <TextView
+            android:id="@+id/dw_tv_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계정 삭제"
+            android:textColor="#000000"
+            android:textSize="6pt"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="356dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

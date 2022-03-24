@@ -2,7 +2,7 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolbar"
+    android:id="@+id/toolbar_edit"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
     android:background="#ffffff"
@@ -37,52 +37,32 @@
         android:visibility="visible"
         android:src="@drawable/ic_star" />
 
-    <!-- readmode -->
+    <!-- editmode -->
     <ImageView
-        android:id="@+id/ab_menu"
+        android:id="@+id/ab_editoff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="visible"
-        android:src="@drawable/ic_menu" />
+        android:src="@drawable/ic_editoff" />
     <ImageView
-        android:id="@+id/ab_editmode"
+        android:id="@+id/ab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="visible"
-        android:src="@drawable/ic_editmode" />
+        android:src="@drawable/ic_add" />
     <ImageView
-        android:id="@+id/ab_share"
+        android:id="@+id/ab_allpage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="visible"
-        android:src="@drawable/ic_share" />
-
-
-    <ImageView
-        android:id="@+id/ab_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="start"
-        android:visibility="visible"
-        android:src="@drawable/ic_search" />
-    <EditText
-        android:id="@+id/ab_editText"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:background="#efefef"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="start"
-        android:visibility="visible"/>
+        android:src="@drawable/ic_allpage" />
 </androidx.appcompat.widget.Toolbar>
