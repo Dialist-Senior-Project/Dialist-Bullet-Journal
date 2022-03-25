@@ -1,17 +1,23 @@
 package com.example.dialist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.content.Context;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -28,6 +34,7 @@ public class First extends AppCompatActivity {
     private EditText mEditText;
     private View mDrawer;
     String email;
+    int mChecked = 0;
 
     public static Context mContext;
 
@@ -79,44 +86,70 @@ public class First extends AppCompatActivity {
             }
         });
 
-        // 드로어 메뉴
+        // 드로어 메뉴 1
         (findViewById(R.id.dw_thema1)).setOnClickListener(view -> {
-            final ConstraintLayout backGround = (ConstraintLayout) findViewById(R.id.first_layout);
-            backGround.setBackgroundResource(android.R.color.white);
-            final Toolbar backGround2 = (Toolbar) findViewById(R.id.toolbar);
-            backGround2.setBackgroundResource(android.R.color.black);
+            ((ConstraintLayout) findViewById(R.id.first_layout)).setBackgroundResource(android.R.color.white);
+            ((Toolbar) findViewById(R.id.toolbar)).setBackgroundResource(android.R.color.black);
         });
         (findViewById(R.id.dw_thema2)).setOnClickListener(view -> {
-            final ConstraintLayout backGround = (ConstraintLayout) findViewById(R.id.first_layout);
-            backGround.setBackgroundColor(0xffe8a1);
-            final Toolbar backGround2 = (Toolbar) findViewById(R.id.toolbar);
-            backGround2.setBackgroundColor(0x3f2424);
+            ((ConstraintLayout) findViewById(R.id.first_layout)).setBackgroundColor((Color.parseColor("#FFE8A1")));
+            ((Toolbar) findViewById(R.id.toolbar)).setBackgroundColor((Color.parseColor("#3F2424")));
+        });
+        (findViewById(R.id.dw_themaStore)).setOnClickListener(view -> {
+            Intent thema_intent = new Intent(getApplicationContext(), Store.class);
+            startActivity(thema_intent);
         });
         (findViewById(R.id.dw_fontStore)).setOnClickListener(view -> {
-            Intent store_intent = new Intent(getApplicationContext(), Store.class);
-            startActivity(store_intent);
+            Intent font_intent = new Intent(getApplicationContext(), Store.class);
+            startActivity(font_intent);
         });
 
+        ((Switch)findViewById(R.id.dw_switch)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) mChecked = 1;
+                else           mChecked = 0;
+            }
+        });
+
+        // 드로어 메뉴 2
         (findViewById(R.id.dw_changePwd)).setOnClickListener(view -> {
-            Intent intent1 = new Intent(getApplication(), PasswordReset.class);
-            startActivity(intent1);
+            Intent pwd_intent = new Intent(getApplication(), PasswordReset.class);
+            startActivity(pwd_intent);
             mDrawerLayout.closeDrawers();
         });
         (findViewById(R.id.dw_logout)).setOnClickListener(view -> {
-            Intent intent2 = new Intent(getApplication(), Really_Delete_email.class);
-            intent2.putExtra("deleteorlogout", "logout");
-            startActivity(intent2);
+            Intent logout_intent = new Intent(getApplication(), Really_Delete_email.class);
+            logout_intent.putExtra("deleteorlogout", "logout");
+            startActivity(logout_intent);
         });
         (findViewById(R.id.dw_terms)).setOnClickListener(view -> {
+            View dialogView = getLayoutInflater().inflate(R.layout.activity_terms, null);
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(dialogView);
+
+            ((TextView)findViewById(R.id.tm_txtText)).setMovementMethod(new ScrollingMovementMethod());
+
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int pos) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         });
-        (findViewById(R.id.dw_review)).setOnClickListener(view -> {
 
+        (findViewById(R.id.dw_review)).setOnClickListener(view -> {
+            Intent review_intent = new Intent(Intent.ACTION_VIEW);
+            review_intent.addCategory(Intent.CATEGORY_DEFAULT);
+            review_intent.setData(Uri.parse("market://details?id=jp.naver.line.android"));
+            startActivity(review_intent);
         });
         (findViewById(R.id.dw_deleteAcc)).setOnClickListener(view -> {
-            Intent intent3 = new Intent(First.this, delete_email_enter_password.class);
-            intent3.putExtra("email", email);
-            startActivity(intent3);
+            Intent delete_intent = new Intent(First.this, delete_email_enter_password.class);
+            delete_intent.putExtra("email", email);
+            startActivity(delete_intent);
         });
 
         // 툴바 메뉴
@@ -154,7 +187,7 @@ public class First extends AppCompatActivity {
 
  */
         (findViewById(R.id.ab_search)).setOnClickListener(view -> {
-            mEditText = (EditText)findViewById(R.id.ab_editText);
+            mEditText = (EditText) findViewById(R.id.ab_editText);
         });
 
         // editmode
@@ -183,13 +216,20 @@ public class First extends AppCompatActivity {
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {}
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+        }
+
         @Override
-        public void onDrawerOpened(@NonNull View drawerView) {}
+        public void onDrawerOpened(@NonNull View drawerView) {
+        }
+
         @Override
-        public void onDrawerClosed(@NonNull View drawerView) {}
+        public void onDrawerClosed(@NonNull View drawerView) {
+        }
+
         @Override
-        public void onDrawerStateChanged(int newState) {}
+        public void onDrawerStateChanged(int newState) {
+        }
     };
 
     private void signOut() {
