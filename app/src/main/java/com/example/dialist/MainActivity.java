@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                             mAuth.addAuthStateListener(firebaseAuthListener);
                             Intent intent = new Intent(getApplication(), First.class);
-                            intent.putExtra("email", id);
                             startActivity(intent);
                             finish();
                         }

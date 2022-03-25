@@ -1,11 +1,13 @@
 package com.example.dialist;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.content.Context;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 public class First extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -32,9 +36,19 @@ public class First extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        //MainActivity에서 email 받아오기
-        Intent intent = getIntent();
-        email = intent.getExtras().getString("email");
+        //사용자 정보 받아오기
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                String providerId = profile.getProviderId();
+
+                String uid = profile.getUid();
+
+                String name = profile.getDisplayName();
+                email = profile.getEmail();
+                Uri photoUrl = profile.getPhotoUrl();
+            }
+        }
 
         mContext = this;
 
