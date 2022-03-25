@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="500dp"
+    android:layout_height="450dp"
     android:background="#eeeeee"
     android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -17,16 +17,18 @@
             android:layout_height="40dp"
             android:gravity="center"
             android:text="서비스 약관"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:layout_margin="10dp"/>
 
         <TextView
-            android:id="@+id/txtText"
+            android:id="@+id/tm_txtText"
             android:layout_width="251dp"
             android:layout_height="348dp"
             android:layout_margin="10dp"
             android:alpha="0.87"
             android:layout_gravity="center"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
             android:scrollbarStyle="outsideInset"
             android:scrollbars="vertical"
             android:text="
@@ -80,15 +82,4 @@ A. 정보 수집 가능
 "
             android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/terms_btn_ok"
-            android:layout_width="276dp"
-            android:layout_height="52dp"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"
-            android:text="확인"
-            android:textSize="15dp"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="440dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>

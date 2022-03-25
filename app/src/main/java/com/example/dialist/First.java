@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.content.Context;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -115,12 +117,13 @@ public class First extends AppCompatActivity {
         });
         (findViewById(R.id.dw_terms)).setOnClickListener(view -> {
             View dialogView = getLayoutInflater().inflate(R.layout.activity_terms, null);
-            Button btn_ok = dialogView.findViewById(R.id.terms_btn_ok);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(dialogView);
 
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            ((TextView)findViewById(R.id.tm_txtText)).setMovementMethod(new ScrollingMovementMethod());
+
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int pos) {
                     dialog.dismiss();
                 }
