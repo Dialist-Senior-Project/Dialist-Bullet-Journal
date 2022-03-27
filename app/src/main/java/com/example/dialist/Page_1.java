@@ -1,5 +1,7 @@
 package com.example.dialist;
 
+import static com.example.dialist.First.num_page;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,10 @@ import androidx.fragment.app.Fragment;
 public class Page_1 extends Fragment {
     int pagenum;
     public Page_1(int i) {
-        pagenum=i;
+        if(num_page<i) {
+            pagenum = 0;
+        }
+        else{ pagenum=i; }
     }
 
     @Override

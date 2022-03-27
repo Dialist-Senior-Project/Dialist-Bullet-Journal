@@ -40,9 +40,9 @@ public class First extends AppCompatActivity {
 
     public static Context mContext;
 
-    private ViewPager2 mPager;
-    private FragmentStateAdapter pagerAdapter;
-    private int num_page = 5;
+    public static ViewPager2 mPager;
+    private static FragmentStateAdapter pagerAdapter;
+    public static int num_page = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +187,11 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_search).setVisibility(View.GONE);
             findViewById(R.id.ab_editmode).setVisibility(View.GONE);
             findViewById(R.id.ab_share).setVisibility(View.GONE);
+
+            pagerAdapter = new PageAdapter(this, num_page, 1);
+            mPager.setAdapter(pagerAdapter);
+            mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+            mPager.setCurrentItem(num_page-1);
         });
         /*
         (findViewById(R.id.ab_share)).setOnClickListener(view -> {
@@ -210,6 +215,10 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_editmode).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_share).setVisibility(View.VISIBLE);
 
+            pagerAdapter = new PageAdapter(this, num_page, 0);
+            mPager.setAdapter(pagerAdapter);
+            mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+            mPager.setCurrentItem(num_page-1);
         });
 
         /*
@@ -224,11 +233,11 @@ public class First extends AppCompatActivity {
 
         //페이지 넘기기
         mPager = findViewById(R.id.viewpager);
-        pagerAdapter = new PageAdapter(this, num_page);
+        pagerAdapter = new PageAdapter(this, num_page, 0);
         mPager.setAdapter(pagerAdapter);
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
-        mPager.setCurrentItem(num_page*10); //시작 지점
+        mPager.setCurrentItem(0); //시작 지점
         mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
 
         mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -237,6 +246,12 @@ public class First extends AppCompatActivity {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (positionOffsetPixels == 0) {
                     mPager.setCurrentItem(position);
+                    if (position >= (num_page)) {
+                        //새 페이지 추가 하실??
+                        Intent newpage_intent = new Intent(getApplication(), AddNewPage.class);
+                        startActivity(newpage_intent);
+                        mPager.setCurrentItem(num_page-1);
+                    }
                 }
             }
 

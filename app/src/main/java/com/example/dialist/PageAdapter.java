@@ -9,9 +9,9 @@ public class PageAdapter extends FragmentStateAdapter {
 
     public int mCount;
 
-    public PageAdapter(FragmentActivity fragment, int count) {
+    public PageAdapter(FragmentActivity fragment, int count, int edit) {
         super(fragment);
-        mCount = count;
+        mCount = count + edit;
     }
 
     @NonNull
@@ -25,7 +25,7 @@ public class PageAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 1000;
+        return mCount;
     }
 
     public int getRealPosition(int position) { return position % mCount; }
