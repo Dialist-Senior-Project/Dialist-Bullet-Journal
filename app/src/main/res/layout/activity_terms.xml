@@ -27,9 +27,6 @@
             android:layout_margin="10dp"
             android:alpha="0.87"
             android:layout_gravity="center"
-            android:scrollbarFadeDuration="0"
-            android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:scrollbarStyle="outsideInset"
             android:scrollbars="vertical"
             android:text="
 개인 정보 정책
