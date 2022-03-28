@@ -1,11 +1,13 @@
 package com.example.dialist;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -15,7 +17,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +35,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
 public class First extends AppCompatActivity {
+    private static final int REQUEST_CODE = 100;
+    public static Object onRestart;
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private ActionBar mActionBar;
@@ -191,7 +198,6 @@ public class First extends AppCompatActivity {
             pagerAdapter = new PageAdapter(this, num_page, 1);
             mPager.setAdapter(pagerAdapter);
             mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-            mPager.setCurrentItem(num_page-1);
         });
         /*
         (findViewById(R.id.ab_share)).setOnClickListener(view -> {
@@ -218,7 +224,6 @@ public class First extends AppCompatActivity {
             pagerAdapter = new PageAdapter(this, num_page, 0);
             mPager.setAdapter(pagerAdapter);
             mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-            mPager.setCurrentItem(num_page-1);
         });
 
         /*
@@ -248,9 +253,8 @@ public class First extends AppCompatActivity {
                     mPager.setCurrentItem(position);
                     if (position >= (num_page)) {
                         //새 페이지 추가 하실??
-                        Intent newpage_intent = new Intent(getApplication(), AddNewPage.class);
-                        startActivity(newpage_intent);
-                        mPager.setCurrentItem(num_page-1);
+                        Intent intent = new Intent(First.this, AddNewPage.class);
+                        mStartForResult.launch(intent);
                     }
                 }
             }
@@ -287,4 +291,17 @@ public class First extends AppCompatActivity {
     private void displayMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == RESULT_OK) {
+                    pagerAdapter = new PageAdapter(this, num_page, 1);
+                    mPager.setAdapter(pagerAdapter);
+                    mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                    mPager.setCurrentItem(num_page-1); //시작 지점
+                    mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
+                }
+            }
+    );
 }

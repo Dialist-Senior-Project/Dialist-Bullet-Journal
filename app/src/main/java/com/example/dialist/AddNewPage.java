@@ -1,6 +1,7 @@
 package com.example.dialist;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -21,8 +22,9 @@ public class AddNewPage extends Activity {
             @Override
             public void onClick(View view) {
                 First.num_page++;
+                Intent intent = new Intent(AddNewPage.this, First.class);
+                setResult(RESULT_OK, intent);
                 finish();
-                First.mPager.setCurrentItem(First.num_page-1);
             }
         });
 
@@ -30,7 +32,6 @@ public class AddNewPage extends Activity {
             @Override
             public void onClick(View view) {
                 finish();
-                First.mPager.setCurrentItem(First.num_page-1);
             }
         });
     }
