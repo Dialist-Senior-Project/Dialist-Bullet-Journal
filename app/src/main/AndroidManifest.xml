@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist">
         <activity
+            android:name=".AddNewPage"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
             android:name=".delete_email_enter_password"
             android:theme="@android:style/Theme.Dialog" />
         <activity

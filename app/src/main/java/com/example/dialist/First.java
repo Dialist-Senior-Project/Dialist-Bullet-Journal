@@ -1,11 +1,13 @@
 package com.example.dialist;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,19 +18,26 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
 public class First extends AppCompatActivity {
+    private static final int REQUEST_CODE = 100;
+    public static Object onRestart;
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private ActionBar mActionBar;
@@ -38,6 +47,10 @@ public class First extends AppCompatActivity {
     int mChecked = 0;
 
     public static Context mContext;
+
+    public static ViewPager2 mPager;
+    private static FragmentStateAdapter pagerAdapter;
+    public static int num_page = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +83,8 @@ public class First extends AppCompatActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
         mActionBar.setDisplayShowTitleEnabled(false);
         mActionBar.setDisplayHomeAsUpEnabled(false);
+
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         // 드로어 닫음
         (findViewById(R.id.dw_back)).setOnClickListener(new View.OnClickListener() {
@@ -182,6 +197,10 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_search).setVisibility(View.GONE);
             findViewById(R.id.ab_editmode).setVisibility(View.GONE);
             findViewById(R.id.ab_share).setVisibility(View.GONE);
+
+            pagerAdapter = new PageAdapter(this, num_page, 1);
+            mPager.setAdapter(pagerAdapter);
+            mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         });
         /*
         (findViewById(R.id.ab_share)).setOnClickListener(view -> {
@@ -205,6 +224,9 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_editmode).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_share).setVisibility(View.VISIBLE);
 
+            pagerAdapter = new PageAdapter(this, num_page, 0);
+            mPager.setAdapter(pagerAdapter);
+            mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         });
 
         /*
@@ -215,6 +237,36 @@ public class First extends AppCompatActivity {
 
         });
 */
+
+
+        //페이지 넘기기
+        mPager = findViewById(R.id.viewpager);
+        pagerAdapter = new PageAdapter(this, num_page, 0);
+        mPager.setAdapter(pagerAdapter);
+        mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+
+        mPager.setCurrentItem(0); //시작 지점
+        mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
+
+        mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                if (positionOffsetPixels == 0) {
+                    mPager.setCurrentItem(position);
+                    if (position >= (num_page)) {
+                        //새 페이지 추가 하실??
+                        Intent intent = new Intent(First.this, AddNewPage.class);
+                        mStartForResult.launch(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+        });
     }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
@@ -242,4 +294,17 @@ public class First extends AppCompatActivity {
     private void displayMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == RESULT_OK) {
+                    pagerAdapter = new PageAdapter(this, num_page, 1);
+                    mPager.setAdapter(pagerAdapter);
+                    mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                    mPager.setCurrentItem(num_page-1); //시작 지점
+                    mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
+                }
+            }
+    );
 }
