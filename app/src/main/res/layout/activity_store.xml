@@ -1,9 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Store">
 
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="3dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="테마"
+                android:textColor="#000000"
+                android:textSize="6pt"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/st_thema1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/img_thema2" />
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="Thema1"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+
+            <ImageView
+                android:id="@+id/st_thema2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/img_thema2" />
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="Thema2"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/st_thema3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/img_thema2" />
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="Thema3"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+
+            <ImageView
+                android:id="@+id/st_thema4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/img_thema2" />
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="Thema4"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="폰트"
+                android:textColor="#000000"
+                android:textSize="6pt"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/st_font1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/img_thema2" />
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="Font1"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+
+            <ImageView
+                android:id="@+id/st_font2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/img_thema2" />
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="Font2"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/st_font3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/img_thema2" />
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="Font3"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+
+            <ImageView
+                android:id="@+id/st_font4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/img_thema2" />
+
+            <TextView
+                android:layout_width="77dp"
+                android:layout_height="28dp"
+                android:text="Font4"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="74dp" />
+        </TableRow>
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,11 +38,18 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+    implementation 'com.android.billingclient:billing:3.0.1'
+    
     implementation 'com.google.firebase:firebase-analytics:20.1.1'
     implementation 'com.google.firebase:firebase-auth:21.0.2'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'com.google.firebase:firebase-auth'
+<<<<<<< HEAD
+    implementation platform('com.google.firebase:firebase-bom:29.1.0'
+    )
+=======
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
 
     implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
+>>>>>>> ca234ddf0f5275244275b98bec2cde259b2a6a33
 }

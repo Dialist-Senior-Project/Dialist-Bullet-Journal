@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.content.Context;
@@ -139,12 +140,11 @@ public class First extends AppCompatActivity {
             startActivity(logout_intent);
         });
         (findViewById(R.id.dw_terms)).setOnClickListener(view -> {
+
             View dialogView = getLayoutInflater().inflate(R.layout.activity_terms, null);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(dialogView);
-
-            ((TextView)findViewById(R.id.tm_txtText)).setMovementMethod(new ScrollingMovementMethod());
 
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int pos) {
@@ -152,8 +152,11 @@ public class First extends AppCompatActivity {
                 }
             });
 
+            ((TextView)dialogView.findViewById(R.id.tm_txtText)).setMovementMethod(new ScrollingMovementMethod());
+
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+
         });
 
         (findViewById(R.id.dw_review)).setOnClickListener(view -> {
