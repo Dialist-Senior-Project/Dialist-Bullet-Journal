@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/pagenumtext"
-        android:text="1"
+        android:text="Loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="50dp"

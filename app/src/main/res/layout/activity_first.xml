@@ -32,4 +32,13 @@
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
+    <LinearLayout
+        android:id="@+id/Loadinglayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            layout="@layout/activity_loading"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.content.Context;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +33,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Iterator;
 
 public class First extends AppCompatActivity {
     private static final int REQUEST_CODE = 100;
@@ -46,16 +58,24 @@ public class First extends AppCompatActivity {
     private View mDrawer;
     String email;
     int mChecked = 0;
+    int firsttoast=0;
 
     public static Context mContext;
 
     public static ViewPager2 mPager;
     private static FragmentStateAdapter pagerAdapter;
-    public static int num_page = 5;
+    public static int num_page = 1;
+
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent loading = new Intent(First.this, Loading.class);
+        loading.putExtra("state", 0);
+        mStartForResult.launch(loading);
+
         setContentView(R.layout.activity_first);
 
         //사용자 정보 받아오기
@@ -71,6 +91,31 @@ public class First extends AppCompatActivity {
                 Uri photoUrl = profile.getPhotoUrl();
             }
         }
+
+        //만약 처음이라면 DB에 첫장이 저장된다.
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        String enEmail = email.replace(".",",");
+        DB(enEmail, 1, "Notthing", 0, 0, 0, 0, "blank");
+
+        //DB에 저장된 데이터를 불러오자.
+        //일단 먼저 페이지가 몇장인지
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(enEmail);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
+                while(child.hasNext()){
+                    num_page=Integer.parseInt(child.next().getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //.getCurrentItem()//현재 페이지
 
         mContext = this;
 
@@ -255,13 +300,17 @@ public class First extends AppCompatActivity {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (positionOffsetPixels == 0) {
                     mPager.setCurrentItem(position);
-                    Toast toast;
-                    toast = Toast.makeText(getApplicationContext(), (position+1)+"/"+num_page, Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.BOTTOM|Gravity.LEFT, 20, 20);
-                    toast.show();
+                    if(firsttoast!=0){
+                        Toast toast;
+                        toast = Toast.makeText(getApplicationContext(), (position+1)+"/"+num_page, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.LEFT, 20, 20);
+                        toast.show();
+                    }
+                    firsttoast=1;
                     if (position >= (num_page)) {
                         //새 페이지 추가 하실??
                         Intent intent = new Intent(First.this, AddNewPage.class);
+                        intent.putExtra("state", 1);
                         mStartForResult.launch(intent);
                     }
                 }
@@ -313,6 +362,35 @@ public class First extends AppCompatActivity {
                 else if(result.getResultCode()==RESULT_CANCELED){
                     mPager.setCurrentItem(num_page-1); //시작 지점
                 }
+                else if(result.getResultCode()==RESULT_FIRST_USER){
+                    LinearLayout Loadinglayout = (LinearLayout)findViewById(R.id.Loadinglayout);
+                    Loadinglayout.setVisibility(View.INVISIBLE);
+                    pagerAdapter = new PageAdapter(this, num_page, 0);
+                    mPager.setAdapter(pagerAdapter);
+                    mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                    mPager.setCurrentItem(num_page-1); //시작 지점
+                    mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
+                }
             }
     );
+
+    private void DB (String Email, int page, String Itemname, int x, int y, int xx, int yy, String value){
+
+        //User 객체 만들기
+        DB thing = new DB(x, y, xx, yy, value);
+
+        mDatabase.child("User").child(Email).child(String.valueOf(page)).child(Itemname).setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 }

@@ -1,1 +1,1 @@
-"# Dialist-Bullet-Journal" 
+"# Dialist-Bullet-Journal"

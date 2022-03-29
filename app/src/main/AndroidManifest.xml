@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dialist">
+
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
@@ -10,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist">
+        <activity
+            android:name=".Loading"
+            android:exported="false" />
         <activity
             android:name=".AddNewPage"
             android:theme="@android:style/Theme.Dialog" />
