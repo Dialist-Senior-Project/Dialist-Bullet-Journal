@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -251,6 +252,10 @@ public class First extends AppCompatActivity {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (positionOffsetPixels == 0) {
                     mPager.setCurrentItem(position);
+                    Toast toast;
+                    toast = Toast.makeText(getApplicationContext(), (position+1)+"/"+num_page, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.LEFT, 20, 20);
+                    toast.show();
                     if (position >= (num_page)) {
                         //새 페이지 추가 하실??
                         Intent intent = new Intent(First.this, AddNewPage.class);
@@ -301,6 +306,9 @@ public class First extends AppCompatActivity {
                     mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
                     mPager.setCurrentItem(num_page-1); //시작 지점
                     mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
+                }
+                else if(result.getResultCode()==RESULT_CANCELED){
+                    mPager.setCurrentItem(num_page-1); //시작 지점
                 }
             }
     );
