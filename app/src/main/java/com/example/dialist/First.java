@@ -57,6 +57,7 @@ public class First extends AppCompatActivity {
     private EditText mEditText;
     private View mDrawer;
     String email;
+    String enEmail;
     int mChecked = 0;
     int firsttoast=0;
 
@@ -93,8 +94,7 @@ public class First extends AppCompatActivity {
         }
 
         //만약 처음이라면 DB에 첫장이 저장된다.
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        String enEmail = email.replace(".",",");
+        enEmail = email.replace(".",",");
         DB(enEmail, 1, "Notthing", 0, 0, 0, 0, "blank");
 
         //DB에 저장된 데이터를 불러오자.
@@ -353,6 +353,7 @@ public class First extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if(result.getResultCode() == RESULT_OK) {
+                    DB(enEmail, num_page, "Notthing", 0, 0, 0, 0, "blank");
                     pagerAdapter = new PageAdapter(this, num_page, 1);
                     mPager.setAdapter(pagerAdapter);
                     mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
@@ -377,6 +378,7 @@ public class First extends AppCompatActivity {
     private void DB (String Email, int page, String Itemname, int x, int y, int xx, int yy, String value){
 
         //User 객체 만들기
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         DB thing = new DB(x, y, xx, yy, value);
 
         mDatabase.child("User").child(Email).child(String.valueOf(page)).child(Itemname).setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
