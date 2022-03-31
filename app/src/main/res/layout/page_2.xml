@@ -5,6 +5,7 @@
     android:id="@+id/p_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_default"
     android:orientation="vertical">
 
     <TextView
@@ -25,9 +26,10 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="24dp"
-        android:text="Button"
+        android:layout_marginStart="296dp"
+        android:layout_marginTop="16dp"
+        android:enabled="true"
+        android:text="임시버튼"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

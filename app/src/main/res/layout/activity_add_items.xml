@@ -22,13 +22,6 @@
             android:layout_weight="1"
             android:text="Item" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="file" />
-
     </LinearLayout>
 
     <Button
@@ -81,74 +74,77 @@
                     android:paddingStart="15dp">
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/tv_txtbox"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Text Box" />
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/img_txtbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_editbox" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/tch_chkbox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingStart="15dp">
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/tv_chkbox"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Check Box" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/img_chkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_checkbox" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/tch_paint"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingStart="15dp">
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/tv_paint"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Paint" />
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/img_paint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_paint" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/tch_link"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp" >
+                    android:paddingStart="15dp">
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/tv_link"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Page Link" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/img_link"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_pagelink" />
@@ -165,80 +161,84 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <FrameLayout
+                    android:id="@+id/tch_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingStart="15dp">
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/tv_time"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Date/Time" />
 
                     <ImageView
-                        android:id="@+id/imageView7"
+                        android:id="@+id/img_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_time" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/tch_table"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingStart="15dp">
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/tv_table"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Table" />
 
                     <ImageView
-                        android:id="@+id/imageView8"
+                        android:id="@+id/img_table"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_table" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/tch_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingStart="15dp">
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/tv_list"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="List" />
 
                     <ImageView
-                        android:id="@+id/imageView10"
+                        android:id="@+id/img_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_list" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/tch_grid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingStart="15dp">
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/tv_grid"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Grid" />
 
                     <ImageView
-                        android:id="@+id/imageView11"
+                        android:id="@+id/img_grid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_grid" />

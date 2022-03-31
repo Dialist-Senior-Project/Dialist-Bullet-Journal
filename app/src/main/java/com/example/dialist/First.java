@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -69,9 +70,13 @@ public class First extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
+    public static Context context_first;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context_first = this;
 
         Intent loading = new Intent(First.this, Loading.class);
         loading.putExtra("state", 0);
@@ -234,6 +239,7 @@ public class First extends AppCompatActivity {
 
         (findViewById(R.id.ab_editmode)).setOnClickListener(view -> {
 
+
             findViewById(R.id.ab_editoff).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_add).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_allpage).setVisibility(View.VISIBLE);
@@ -244,10 +250,13 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_editmode).setVisibility(View.GONE);
             findViewById(R.id.ab_share).setVisibility(View.GONE);
 
+            //findViewById(R.id.button3).setEnabled(true);
+
             pagerAdapter = new PageAdapter(this, num_page, 1);
             mPager.setAdapter(pagerAdapter);
             mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         });
+
         /*
         (findViewById(R.id.ab_share)).setOnClickListener(view -> {
 
@@ -260,6 +269,8 @@ public class First extends AppCompatActivity {
 
         // editmode
         (findViewById(R.id.ab_editoff)).setOnClickListener(view -> {
+            mPager.setUserInputEnabled(true);
+
             findViewById(R.id.ab_editoff).setVisibility(View.GONE);
             findViewById(R.id.ab_add).setVisibility(View.GONE);
             findViewById(R.id.ab_allpage).setVisibility(View.GONE);
@@ -275,11 +286,17 @@ public class First extends AppCompatActivity {
             mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         });
 
-        /*
-        (findViewById(R.id.ab_add)).setOnClickListener(view -> {
 
+        /*********************/
+        /*****여기서 시작 *****/
+        /*********************/
+        (findViewById(R.id.ab_add)).setOnClickListener(view -> {
+            Intent intent = new Intent(this, Activity_add_items.class);
+            startActivity(intent);
         });
-        (findViewById(R.id.ab_allpage)).setOnClickListener(view -> {
+
+
+        /*(findViewById(R.id.ab_allpage)).setOnClickListener(view -> {
 
         });
 */
