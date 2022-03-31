@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist">
         <activity
+            android:name=".Activity_add_items"
+            android:exported="false" />
+        <activity
             android:name=".Loading"
             android:exported="false" />
         <activity
