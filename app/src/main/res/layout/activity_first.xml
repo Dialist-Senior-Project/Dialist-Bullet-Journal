@@ -34,14 +34,9 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-<<<<<<< HEAD
                 android:id="@+id/viewpager"/>
 
             </LinearLayout>
-=======
-                android:id="@+id/viewpager">
-            </androidx.viewpager2.widget.ViewPager2>
->>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
         </LinearLayout>
 
         <include layout="@layout/drawerlayout"/>
@@ -53,8 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include
-            layout="@layout/activity_loading"/>
+        <include layout="@layout/activity_loading"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

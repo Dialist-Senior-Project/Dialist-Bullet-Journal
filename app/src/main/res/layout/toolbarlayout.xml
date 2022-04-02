@@ -96,17 +96,12 @@
         android:id="@+id/ab_editoff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_gravity="end"
-<<<<<<< HEAD
         android:visibility="gone"
         android:src="@drawable/ic_editoff"
         android:onClick="onClickRead"/>
-=======
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/ic_editoff"
-        android:visibility="gone" />
->>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
     <ImageView
         android:id="@+id/ab_add"
         android:layout_width="wrap_content"
