@@ -3,13 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dialist">
 
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
-=======
     <uses-permission android:name="com.android.vending.BILLING" />
->>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
 
     <application
         android:allowBackup="true"
