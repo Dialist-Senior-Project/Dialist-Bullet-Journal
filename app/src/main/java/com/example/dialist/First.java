@@ -231,13 +231,11 @@ public class First extends AppCompatActivity {
     }
 
     public void onClickShare(View view) {
-        //Null Point Exception ERROR 방지
         if (mView == null) {
             displayMessage("Error: view==NULL");
             return;
         }
 
-        // 캐시 비트 맵 생성
         mView.setDrawingCacheEnabled(true);
         mView.buildDrawingCache();
         Bitmap viewBitmap = Bitmap.createBitmap(mView.getDrawingCache());
