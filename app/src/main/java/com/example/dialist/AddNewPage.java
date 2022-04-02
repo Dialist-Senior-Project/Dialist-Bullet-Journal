@@ -31,6 +31,8 @@ public class AddNewPage extends Activity {
         pageNO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(AddNewPage.this, First.class);
+                setResult(RESULT_CANCELED, intent);
                 finish();
             }
         });

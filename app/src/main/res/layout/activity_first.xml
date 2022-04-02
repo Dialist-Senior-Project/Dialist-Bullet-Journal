@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/first_layout"
     tools:context=".First">
 
@@ -34,13 +34,27 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+<<<<<<< HEAD
                 android:id="@+id/viewpager"/>
 
             </LinearLayout>
+=======
+                android:id="@+id/viewpager">
+            </androidx.viewpager2.widget.ViewPager2>
+>>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
         </LinearLayout>
 
         <include layout="@layout/drawerlayout"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
+
+    <LinearLayout
+        android:id="@+id/Loadinglayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            layout="@layout/activity_loading"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

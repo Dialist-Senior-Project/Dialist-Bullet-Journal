@@ -22,12 +22,22 @@ import android.os.ParcelFileDescriptor;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.method.ScrollingMovementMethod;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+import android.view.Gravity;
+>>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.content.Context;
+<<<<<<< HEAD
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+=======
+import android.widget.LinearLayout;
+import android.widget.Switch;
+>>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +53,24 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Iterator;
 
 
 import java.io.BufferedOutputStream;
@@ -77,17 +99,30 @@ public class First extends AppCompatActivity {
     private LinearLayout mView;
 
     String email;
+    String enEmail;
     int mChecked = 0;
+    int firsttoast=0;
 
     public static Context mContext;
 
     public static ViewPager2 mPager;
     private static FragmentStateAdapter pagerAdapter;
-    public static int num_page = 5;
+    public static int num_page = 1;
+
+    private DatabaseReference mDatabase;
+
+    public static Context context_first;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context_first = this;
+
+        Intent loading = new Intent(First.this, Loading.class);
+        loading.putExtra("state", 0);
+        mStartForResult.launch(loading);
+
         setContentView(R.layout.activity_first);
 
         //사용자 정보 받아오기
@@ -103,6 +138,30 @@ public class First extends AppCompatActivity {
                 Uri photoUrl = profile.getPhotoUrl();
             }
         }
+
+        //만약 처음이라면 DB에 첫장이 저장된다.
+        enEmail = email.replace(".",",");
+        DB(enEmail, 1, "Notthing", 0, 0, 0, 0, "blank");
+
+        //DB에 저장된 데이터를 불러오자.
+        //일단 먼저 페이지가 몇장인지
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(enEmail);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
+                while(child.hasNext()){
+                    num_page=Integer.parseInt(child.next().getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //.getCurrentItem()//현재 페이지
 
         mContext = this;
 
@@ -128,9 +187,160 @@ public class First extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         // 캡처 및 공유하기
         mView = (LinearLayout) findViewById(R.id.capture_layout);
         verifyStoragePermission(this);
+=======
+        // 드로어 메뉴 1
+        (findViewById(R.id.dw_thema1)).setOnClickListener(view -> {
+            ((ConstraintLayout) findViewById(R.id.first_layout)).setBackgroundResource(android.R.color.white);
+            ((Toolbar) findViewById(R.id.toolbar)).setBackgroundResource(android.R.color.black);
+        });
+        (findViewById(R.id.dw_thema2)).setOnClickListener(view -> {
+            ((ConstraintLayout) findViewById(R.id.first_layout)).setBackgroundColor((Color.parseColor("#FFE8A1")));
+            ((Toolbar) findViewById(R.id.toolbar)).setBackgroundColor((Color.parseColor("#3F2424")));
+        });
+        (findViewById(R.id.dw_themaStore)).setOnClickListener(view -> {
+            Intent thema_intent = new Intent(getApplicationContext(), Store.class);
+            startActivity(thema_intent);
+        });
+        (findViewById(R.id.dw_fontStore)).setOnClickListener(view -> {
+            Intent font_intent = new Intent(getApplicationContext(), Store.class);
+            startActivity(font_intent);
+        });
+
+        ((Switch)findViewById(R.id.dw_switch)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) mChecked = 1;
+                else           mChecked = 0;
+            }
+        });
+
+        // 드로어 메뉴 2
+        (findViewById(R.id.dw_changePwd)).setOnClickListener(view -> {
+            Intent pwd_intent = new Intent(getApplication(), PasswordReset.class);
+            startActivity(pwd_intent);
+            mDrawerLayout.closeDrawers();
+        });
+        (findViewById(R.id.dw_logout)).setOnClickListener(view -> {
+            Intent logout_intent = new Intent(getApplication(), Really_Delete_email.class);
+            logout_intent.putExtra("deleteorlogout", "logout");
+            startActivity(logout_intent);
+        });
+        (findViewById(R.id.dw_terms)).setOnClickListener(view -> {
+
+            View dialogView = getLayoutInflater().inflate(R.layout.activity_terms, null);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(dialogView);
+
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int pos) {
+                    dialog.dismiss();
+                }
+            });
+
+            ((TextView)dialogView.findViewById(R.id.tm_txtText)).setMovementMethod(new ScrollingMovementMethod());
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+        });
+
+        (findViewById(R.id.dw_review)).setOnClickListener(view -> {
+            Intent review_intent = new Intent(Intent.ACTION_VIEW);
+            review_intent.addCategory(Intent.CATEGORY_DEFAULT);
+            review_intent.setData(Uri.parse("market://details?id=jp.naver.line.android"));
+            startActivity(review_intent);
+        });
+        (findViewById(R.id.dw_deleteAcc)).setOnClickListener(view -> {
+            Intent delete_intent = new Intent(First.this, delete_email_enter_password.class);
+            delete_intent.putExtra("email", email);
+            startActivity(delete_intent);
+        });
+
+        // 툴바 메뉴
+        // basic
+        /*
+        (findViewById(R.id.ab_bookmark)).setOnClickListener(view -> {
+
+        });
+        (findViewById(R.id.ab_star)).setOnClickListener(view -> {
+
+        });
+*/
+
+        // readmode
+        (findViewById(R.id.ab_menu)).setOnClickListener(view -> {
+            mDrawerLayout.openDrawer(mDrawer);
+        });
+
+        (findViewById(R.id.ab_editmode)).setOnClickListener(view -> {
+
+
+            findViewById(R.id.ab_editoff).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_add).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_allpage).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.ab_menu).setEnabled(false);
+            findViewById(R.id.ab_editText).setVisibility(View.GONE);
+            findViewById(R.id.ab_search).setVisibility(View.GONE);
+            findViewById(R.id.ab_editmode).setVisibility(View.GONE);
+            findViewById(R.id.ab_share).setVisibility(View.GONE);
+
+            //findViewById(R.id.button3).setEnabled(true);
+
+            pagerAdapter = new PageAdapter(this, num_page, 1);
+            mPager.setAdapter(pagerAdapter);
+            mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        });
+
+        /*
+        (findViewById(R.id.ab_share)).setOnClickListener(view -> {
+
+        });
+
+ */
+        (findViewById(R.id.ab_search)).setOnClickListener(view -> {
+            mEditText = (EditText) findViewById(R.id.ab_editText);
+        });
+
+        // editmode
+        (findViewById(R.id.ab_editoff)).setOnClickListener(view -> {
+            mPager.setUserInputEnabled(true);
+
+            findViewById(R.id.ab_editoff).setVisibility(View.GONE);
+            findViewById(R.id.ab_add).setVisibility(View.GONE);
+            findViewById(R.id.ab_allpage).setVisibility(View.GONE);
+
+            findViewById(R.id.ab_menu).setEnabled(true);
+            findViewById(R.id.ab_editText).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_search).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_editmode).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_share).setVisibility(View.VISIBLE);
+
+            pagerAdapter = new PageAdapter(this, num_page, 0);
+            mPager.setAdapter(pagerAdapter);
+            mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        });
+
+
+        /*********************/
+        /*****여기서 시작 *****/
+        /*********************/
+        (findViewById(R.id.ab_add)).setOnClickListener(view -> {
+            Intent intent = new Intent(this, Activity_add_items.class);
+            startActivity(intent);
+        });
+
+
+        /*(findViewById(R.id.ab_allpage)).setOnClickListener(view -> {
+
+        });
+*/
+
+>>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
 
         //페이지 넘기기
         mPager = findViewById(R.id.viewpager);
@@ -147,9 +357,17 @@ public class First extends AppCompatActivity {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (positionOffsetPixels == 0) {
                     mPager.setCurrentItem(position);
+                    if(firsttoast!=0){
+                        Toast toast;
+                        toast = Toast.makeText(getApplicationContext(), (position+1)+"/"+num_page, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.LEFT, 20, 20);
+                        toast.show();
+                    }
+                    firsttoast=1;
                     if (position >= (num_page)) {
                         //새 페이지 추가 하실??
                         Intent intent = new Intent(First.this, AddNewPage.class);
+                        intent.putExtra("state", 1);
                         mStartForResult.launch(intent);
                     }
                 }
@@ -187,16 +405,34 @@ public class First extends AppCompatActivity {
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
+<<<<<<< HEAD
                 if (result.getResultCode() == RESULT_OK) {
+=======
+                if(result.getResultCode() == RESULT_OK) {
+                    DB(enEmail, num_page, "Notthing", 0, 0, 0, 0, "blank");
+>>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
                     pagerAdapter = new PageAdapter(this, num_page, 1);
                     mPager.setAdapter(pagerAdapter);
                     mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
                     mPager.setCurrentItem(num_page - 1); //시작 지점
                     mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
                 }
+                else if(result.getResultCode()==RESULT_CANCELED){
+                    mPager.setCurrentItem(num_page-1); //시작 지점
+                }
+                else if(result.getResultCode()==RESULT_FIRST_USER){
+                    LinearLayout Loadinglayout = (LinearLayout)findViewById(R.id.Loadinglayout);
+                    Loadinglayout.setVisibility(View.INVISIBLE);
+                    pagerAdapter = new PageAdapter(this, num_page, 0);
+                    mPager.setAdapter(pagerAdapter);
+                    mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                    mPager.setCurrentItem(num_page-1); //시작 지점
+                    mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
+                }
             }
     );
 
+<<<<<<< HEAD
     // toolbar menu
     public void onClickBookmark(View view) {
 
@@ -399,5 +635,26 @@ public class First extends AppCompatActivity {
 
     private void displayMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+=======
+    private void DB (String Email, int page, String Itemname, int x, int y, int xx, int yy, String value){
+
+        //User 객체 만들기
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DB thing = new DB(x, y, xx, yy, value);
+
+        mDatabase.child("User").child(Email).child(String.valueOf(page)).child(Itemname).setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+>>>>>>> 58b7f2486c0beb1069cb018144471ea28380d024
     }
 }
