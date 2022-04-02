@@ -5,7 +5,6 @@
     android:id="@+id/toolbar"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
-    android:background="#FFFFFF"
     android:elevation="3dp"
     android:contentInsetLeft="0dp"
     android:contentInsetStart="0dp"
@@ -25,7 +24,8 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="start"
         android:visibility="visible"
-        android:src="@drawable/ic_bookmark" />
+        android:src="@drawable/ic_bookmark"
+        android:onClick="onClickBookmark"/>
     <ImageView
         android:id="@+id/ab_star"
         android:layout_width="wrap_content"
@@ -34,7 +34,8 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="start"
         android:visibility="visible"
-        android:src="@drawable/ic_star" />
+        android:src="@drawable/ic_star"
+        android:onClick="onClickStar"/>
 
     <!-- readmode -->
     <ImageView
@@ -45,7 +46,8 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="visible"
-        android:src="@drawable/ic_menu" />
+        android:src="@drawable/ic_menu"
+        android:onClick="onClickMenu"/>
     <ImageView
         android:id="@+id/ab_editmode"
         android:layout_width="wrap_content"
@@ -54,7 +56,8 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="visible"
-        android:src="@drawable/ic_editmode" />
+        android:src="@drawable/ic_editmode"
+        android:onClick="onClickEdit"/>
     <ImageView
         android:id="@+id/ab_share"
         android:layout_width="wrap_content"
@@ -63,8 +66,8 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="visible"
-        android:src="@drawable/ic_share" />
-
+        android:src="@drawable/ic_share"
+        android:onClick="onClickShare"/>
 
     <ImageView
         android:id="@+id/ab_search"
@@ -74,12 +77,15 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="start"
         android:visibility="visible"
-        android:src="@drawable/ic_search" />
+        android:src="@drawable/ic_search"
+        android:onClick="onClickSearch"/>
     <EditText
         android:id="@+id/ab_editText"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="#efefef"
+        android:background="@drawable/custom_round"
+        android:singleLine="true"
+        android:maxLines="1"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_gravity="start"
@@ -94,7 +100,8 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="gone"
-        android:src="@drawable/ic_editoff" />
+        android:src="@drawable/ic_editoff"
+        android:onClick="onClickRead"/>
     <ImageView
         android:id="@+id/ab_add"
         android:layout_width="wrap_content"
@@ -103,7 +110,8 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="gone"
-        android:src="@drawable/ic_add" />
+        android:src="@drawable/ic_add"
+        android:onClick="onClickAddItem"/>
     <ImageView
         android:id="@+id/ab_allpage"
         android:layout_width="wrap_content"
@@ -112,5 +120,6 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
         android:visibility="gone"
-        android:src="@drawable/ic_allpage" />
+        android:src="@drawable/ic_allpage"
+        android:onClick="onClickAllPage"/>
 </androidx.appcompat.widget.Toolbar>
