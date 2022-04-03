@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Activity_add_items extends AppCompatActivity {
+public class Add_items extends AppCompatActivity {
 
     int selected = 0;
 

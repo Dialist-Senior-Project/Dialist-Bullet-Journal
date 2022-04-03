@@ -299,7 +299,7 @@ public class First extends AppCompatActivity {
         /*****여기서 시작 *****/
         /*********************/
         (findViewById(R.id.ab_add)).setOnClickListener(view -> {
-            Intent intent = new Intent(this, Activity_add_items.class);
+            Intent intent = new Intent(this, Add_items.class);
             startActivity(intent);
         });
         (findViewById(R.id.ab_allpage)).setOnClickListener(view -> {

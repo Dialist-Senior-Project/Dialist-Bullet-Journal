@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dialist">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
@@ -15,10 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist">
-
         <activity
-            android:name=".Activity_add_items"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog"/>
+            android:name=".edit_chkbox_content"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity
+            android:name=".editable_checkbox"
+            android:exported="false" />
+        <activity
+            android:name=".Add_items"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity
             android:name=".AllPages"
             android:theme="@android:style/Theme.Dialog" />
@@ -62,7 +67,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
-
     </application>
 
 </manifest>
