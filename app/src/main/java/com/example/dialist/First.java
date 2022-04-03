@@ -1,7 +1,6 @@
 package com.example.dialist;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -90,20 +89,9 @@ public class First extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        context_first = this;
-
         setContentView(R.layout.activity_first);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                LinearLayout Loading = (LinearLayout) findViewById(R.id.Loadinglayout);
-                Loading.setVisibility(View.INVISIBLE);
-                Toast.makeText(First.this, "1", Toast.LENGTH_SHORT).show();
-            }
-        }, 3000);
+        context_first = this;
 
         //사용자 정보 받아오기
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -323,9 +311,20 @@ public class First extends AppCompatActivity {
         (findViewById(R.id.ab_drawbrush)).setOnClickListener(view -> {
         });
 
-
         //페이지 넘기기
         mPager = findViewById(R.id.viewpager);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                LinearLayout Loading = (LinearLayout) findViewById(R.id.Loadinglayout);
+                Loading.setVisibility(View.INVISIBLE);
+                Toast.makeText(First.this, "1", Toast.LENGTH_SHORT).show();
+                int i = Loading();
+            }
+        }, 3000);
+
         pagerAdapter = new PageAdapter(this, num_page, 0);
         mPager.setAdapter(pagerAdapter);
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
@@ -401,6 +400,14 @@ public class First extends AppCompatActivity {
                     }
                 }
             });
+    public int Loading(){
+        pagerAdapter = new PageAdapter(this, num_page, 0);
+        mPager.setAdapter(pagerAdapter);
+        mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        mPager.setCurrentItem(num_page - 1); //시작 지점
+        mPager.setOffscreenPageLimit(num_page); //최대 이미지 수
+        return 0;
+    }
 
     // toolbar menu
     public void onClickBookmark(View view) {
