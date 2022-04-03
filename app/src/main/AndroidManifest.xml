@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist">
         <activity
+            android:name=".AllPages"
+            android:exported="@android:style/Theme.Dialog" />
+        <activity
             android:name=".Loading"
             android:exported="false" />
         <activity

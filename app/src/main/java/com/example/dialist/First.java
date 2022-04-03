@@ -237,6 +237,7 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_editoff).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_add).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_allpage).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_drawbrush).setVisibility(View.VISIBLE);
 
             findViewById(R.id.ab_menu).setEnabled(false);
             findViewById(R.id.ab_editText).setVisibility(View.GONE);
@@ -263,6 +264,7 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_editoff).setVisibility(View.GONE);
             findViewById(R.id.ab_add).setVisibility(View.GONE);
             findViewById(R.id.ab_allpage).setVisibility(View.GONE);
+            findViewById(R.id.ab_drawbrush).setVisibility(View.GONE);
 
             findViewById(R.id.ab_menu).setEnabled(true);
             findViewById(R.id.ab_editText).setVisibility(View.VISIBLE);
@@ -279,10 +281,15 @@ public class First extends AppCompatActivity {
         (findViewById(R.id.ab_add)).setOnClickListener(view -> {
 
         });
+        */
         (findViewById(R.id.ab_allpage)).setOnClickListener(view -> {
-
+            Intent intent = new Intent(First.this, AllPages.class);
+            mStartForResult.launch(intent);
         });
-*/
+
+        //손으로 그림 그리기(그림판)
+        (findViewById(R.id.ab_drawbrush)).setOnClickListener(view -> {
+        });
 
 
         //페이지 넘기기

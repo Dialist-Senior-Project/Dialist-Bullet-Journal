@@ -113,4 +113,13 @@
         android:layout_gravity="end"
         android:visibility="gone"
         android:src="@drawable/ic_allpage" />
+    <ImageView
+        android:id="@+id/ab_drawbrush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        android:src="@drawable/ic_baseline_brush_24" />
 </androidx.appcompat.widget.Toolbar>
