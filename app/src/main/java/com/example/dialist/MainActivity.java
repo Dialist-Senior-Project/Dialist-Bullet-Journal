@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
+            Toast.makeText(MainActivity.this, "로그인 성공3", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplication(), First.class);
             startActivity(intent);
             finish();
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) { //update ui code here
         if (user != null) {
+            Toast.makeText(MainActivity.this, "로그인 성공1", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, First.class);
             startActivity(intent);
             finish();
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "로그인 성공2", Toast.LENGTH_SHORT).show();
                             mAuth.addAuthStateListener(firebaseAuthListener);
                             Intent intent = new Intent(getApplication(), First.class);
                             startActivity(intent);

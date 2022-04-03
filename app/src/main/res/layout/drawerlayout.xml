@@ -6,7 +6,6 @@
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:layout_gravity="right"
-    android:background="#FFFFFF"
     android:elevation="1dp"
     tools:context=".First">
 
@@ -19,7 +18,8 @@
         android:layout_marginTop="7dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onClickClose"/>
 
     <TextView
         android:id="@+id/dw_font"
@@ -28,7 +28,6 @@
         android:layout_marginStart="17dp"
         android:layout_marginEnd="40dp"
         android:text="글꼴"
-        android:textColor="#000000"
         android:textSize="6pt"
         app:layout_constraintBaseline_toBaselineOf="@+id/dw_tv_font"
         app:layout_constraintEnd_toStartOf="@+id/dw_tv_font"
@@ -69,7 +68,8 @@
         app:layout_constraintBottom_toTopOf="@+id/dw_changePwd"
         app:layout_constraintEnd_toStartOf="@+id/dw_darkmode"
         app:layout_constraintStart_toEndOf="@+id/dw_thema1"
-        app:layout_constraintTop_toTopOf="@+id/dw_lang" />
+        app:layout_constraintTop_toTopOf="@+id/dw_lang"
+        android:onClick="onClickSwitch"/>
 
     <TextView
         android:id="@+id/dw_lang"
@@ -78,7 +78,6 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="49dp"
         android:text="언어"
-        android:textColor="#000000"
         android:textSize="6pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dw_font" />
@@ -104,7 +103,6 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="32dp"
         android:text="모드"
-        android:textColor="#000000"
         android:textSize="6pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dw_lang" />
@@ -127,7 +125,8 @@
         android:src="@drawable/img_others"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dw_tv_font"
-        app:layout_constraintTop_toBottomOf="@+id/dw_themaStore" />
+        app:layout_constraintTop_toBottomOf="@+id/dw_themaStore"
+        android:onClick="onClickFontStore"/>
 
     <ImageView
         android:id="@+id/dw_themaStore"
@@ -136,7 +135,8 @@
         android:layout_marginTop="66dp"
         android:src="@drawable/img_others"
         app:layout_constraintStart_toStartOf="@+id/dw_fontStore"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onClickThemaStore"/>
 
     <ImageView
         android:id="@+id/dw_thema1"
@@ -145,7 +145,8 @@
         android:layout_marginEnd="9dp"
         android:src="@drawable/img_thema1"
         app:layout_constraintEnd_toStartOf="@+id/dw_thema2"
-        app:layout_constraintTop_toTopOf="@+id/dw_thema2" />
+        app:layout_constraintTop_toTopOf="@+id/dw_thema2"
+        android:onClick="onClickThema1"/>
 
     <ImageView
         android:id="@+id/dw_thema2"
@@ -154,7 +155,8 @@
         android:layout_marginEnd="6dp"
         android:src="@drawable/img_thema2"
         app:layout_constraintEnd_toStartOf="@+id/dw_themaStore"
-        app:layout_constraintTop_toTopOf="@+id/dw_themaStore" />
+        app:layout_constraintTop_toTopOf="@+id/dw_themaStore"
+        android:onClick="onClickThema2"/>
 
     <TextView
         android:id="@+id/dw_thema"
@@ -162,7 +164,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:text="테마"
-        android:textColor="#000000"
         android:textSize="6pt"
         app:layout_constraintBottom_toBottomOf="@+id/dw_thema1"
         app:layout_constraintStart_toStartOf="parent"
@@ -179,17 +180,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onClickChangePwd">
 
         <TextView
             android:id="@+id/dw_tv_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="비밀번호 변경"
-            android:textColor="#000000"
             android:textSize="6pt"
             tools:layout_editor_absoluteX="36dp"
-            tools:layout_editor_absoluteY="394dp" />
+            tools:layout_editor_absoluteY="394dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -199,17 +200,17 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dw_changePwd">
+        app:layout_constraintTop_toBottomOf="@+id/dw_changePwd"
+        android:onClick="onClickLogout">
 
         <TextView
             android:id="@+id/dw_tv_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="로그아웃"
-            android:textColor="#000000"
             android:textSize="6pt"
             tools:layout_editor_absoluteX="46dp"
-            tools:layout_editor_absoluteY="455dp" />
+            tools:layout_editor_absoluteY="455dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -219,7 +220,8 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dw_logout">
+        app:layout_constraintTop_toBottomOf="@+id/dw_logout"
+        android:onClick="onClickTerms">
 
         <TextView
 
@@ -227,10 +229,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="서비스 약관"
-            android:textColor="#000000"
             android:textSize="6pt"
             tools:layout_editor_absoluteX="94dp"
-            tools:layout_editor_absoluteY="514dp" />
+            tools:layout_editor_absoluteY="514dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -241,17 +242,17 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dw_terms">
+        app:layout_constraintTop_toTopOf="@+id/dw_terms"
+        android:onClick="onClickReview">
 
         <TextView
             android:id="@+id/dw_tv_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="리뷰 남기기"
-            android:textColor="#000000"
             android:textSize="6pt"
             tools:layout_editor_absoluteX="36dp"
-            tools:layout_editor_absoluteY="320dp" />
+            tools:layout_editor_absoluteY="320dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -262,16 +263,16 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dw_review">
+        app:layout_constraintTop_toBottomOf="@+id/dw_review"
+        android:onClick="onClickDeleteAcc">
 
         <TextView
             android:id="@+id/dw_tv_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="계정 삭제"
-            android:textColor="#000000"
             android:textSize="6pt"
             tools:layout_editor_absoluteX="36dp"
-            tools:layout_editor_absoluteY="356dp" />
+            tools:layout_editor_absoluteY="356dp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
