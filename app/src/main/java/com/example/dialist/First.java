@@ -87,7 +87,7 @@ public class First extends AppCompatActivity {
     private DatabaseReference mDatabase;
     public static Context context_first;
 
-    int draw = 0;
+    static int draw = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -317,6 +317,7 @@ public class First extends AppCompatActivity {
 
         //손으로 그림 그리기(그림판)
         (findViewById(R.id.ab_drawbrush1)).setOnClickListener(view -> {
+            draw=0;
             mPager.setUserInputEnabled(true);
             mPager.setCurrentItem(now_page-1, true);
             Toast.makeText(First.this, "그림판 끔", Toast.LENGTH_SHORT).show();
@@ -326,6 +327,7 @@ public class First extends AppCompatActivity {
         });
 
         (findViewById(R.id.ab_drawbrush2)).setOnClickListener(view -> {
+            draw=1;
             mPager.setUserInputEnabled(false);
             mPager.setCurrentItem(now_page-1, false);
             Toast.makeText(First.this, "그림판 킴", Toast.LENGTH_SHORT).show();
