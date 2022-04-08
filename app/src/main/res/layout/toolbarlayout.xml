@@ -123,7 +123,7 @@
         android:src="@drawable/ic_allpage"
         android:onClick="onClickAllPage"/>
     <ImageView
-        android:id="@+id/ab_drawbrush"
+        android:id="@+id/ab_drawbrush1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
@@ -131,4 +131,13 @@
         android:layout_gravity="end"
         android:visibility="gone"
         android:src="@drawable/ic_baseline_brush_24" />
+    <ImageView
+        android:id="@+id/ab_drawbrush2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        android:src="@drawable/ic_baseline_brush_25" />
 </androidx.appcompat.widget.Toolbar>

@@ -82,9 +82,12 @@ public class First extends AppCompatActivity {
     public static ViewPager2 mPager;
     private static FragmentStateAdapter pagerAdapter;
     public static int num_page = 1;
+    int now_page=1;
 
     private DatabaseReference mDatabase;
     public static Context context_first;
+
+    int draw = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -249,7 +252,7 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_editoff).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_add).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_allpage).setVisibility(View.VISIBLE);
-            findViewById(R.id.ab_drawbrush).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_drawbrush2).setVisibility(View.VISIBLE);
 
             findViewById(R.id.ab_menu).setEnabled(false);
             findViewById(R.id.ab_editText).setVisibility(View.GONE);
@@ -281,7 +284,8 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_editoff).setVisibility(View.GONE);
             findViewById(R.id.ab_add).setVisibility(View.GONE);
             findViewById(R.id.ab_allpage).setVisibility(View.GONE);
-            findViewById(R.id.ab_drawbrush).setVisibility(View.GONE);
+            findViewById(R.id.ab_drawbrush1).setVisibility(View.GONE);
+            findViewById(R.id.ab_drawbrush2).setVisibility(View.GONE);
 
             findViewById(R.id.ab_menu).setEnabled(true);
             findViewById(R.id.ab_editText).setVisibility(View.VISIBLE);
@@ -292,6 +296,10 @@ public class First extends AppCompatActivity {
             pagerAdapter = new PageAdapter(this, num_page, 0);
             mPager.setAdapter(pagerAdapter);
             mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+
+            mPager.setUserInputEnabled(true);
+            mPager.setCurrentItem(0, true);
+            Toast.makeText(First.this, "그림판 끔", Toast.LENGTH_SHORT).show();
         });
 
 
@@ -308,7 +316,22 @@ public class First extends AppCompatActivity {
         });
 
         //손으로 그림 그리기(그림판)
-        (findViewById(R.id.ab_drawbrush)).setOnClickListener(view -> {
+        (findViewById(R.id.ab_drawbrush1)).setOnClickListener(view -> {
+            mPager.setUserInputEnabled(true);
+            mPager.setCurrentItem(now_page-1, true);
+            Toast.makeText(First.this, "그림판 끔", Toast.LENGTH_SHORT).show();
+            findViewById(R.id.ab_drawbrush1).setVisibility(View.GONE);
+            findViewById(R.id.ab_drawbrush2).setVisibility(View.VISIBLE);
+            Toast.makeText(First.this, "now_page"+now_page, Toast.LENGTH_SHORT).show();
+        });
+
+        (findViewById(R.id.ab_drawbrush2)).setOnClickListener(view -> {
+            mPager.setUserInputEnabled(false);
+            mPager.setCurrentItem(now_page-1, false);
+            Toast.makeText(First.this, "그림판 킴", Toast.LENGTH_SHORT).show();
+            findViewById(R.id.ab_drawbrush1).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_drawbrush2).setVisibility(View.GONE);
+            Toast.makeText(First.this, "now_page"+now_page, Toast.LENGTH_SHORT).show();
         });
 
         //페이지 넘기기
@@ -338,7 +361,8 @@ public class First extends AppCompatActivity {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (positionOffsetPixels == 0) {
                     mPager.setCurrentItem(position);
-                    if (firsttoast != 0) {
+                    if (firsttoast != 0 && draw==0) {
+                        now_page = position+1;
                         Toast toast;
                         toast = Toast.makeText(getApplicationContext(), (position + 1) + "/" + num_page, Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.BOTTOM | Gravity.LEFT, 20, 20);
