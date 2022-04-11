@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/c_layout"
     android:layout_width="255dp"
     android:layout_height="220dp"
     tools:context=".Add_items">
@@ -71,11 +72,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp">
+                    android:paddingStart="5dp">
 
                     <TextView
                         android:id="@+id/tv_txtbox"
-                        android:layout_width="75dp"
+                        android:layout_width="85dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Text Box" />
@@ -92,11 +93,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp">
+                    android:paddingStart="5dp">
 
                     <TextView
                         android:id="@+id/tv_chkbox"
-                        android:layout_width="75dp"
+                        android:layout_width="85dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Check Box" />
@@ -113,11 +114,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp">
+                    android:paddingStart="5dp">
 
                     <TextView
                         android:id="@+id/tv_paint"
-                        android:layout_width="75dp"
+                        android:layout_width="85dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Paint" />
@@ -134,11 +135,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp">
+                    android:paddingStart="5dp">
 
                     <TextView
                         android:id="@+id/tv_link"
-                        android:layout_width="75dp"
+                        android:layout_width="85dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Page Link" />
@@ -165,11 +166,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp">
+                    android:paddingStart="0dp">
 
                     <TextView
                         android:id="@+id/tv_time"
-                        android:layout_width="75dp"
+                        android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Date/Time" />
@@ -186,11 +187,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp">
+                    android:paddingStart="0dp">
 
                     <TextView
                         android:id="@+id/tv_table"
-                        android:layout_width="75dp"
+                        android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Table" />
@@ -207,11 +208,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp">
+                    android:paddingStart="0dp">
 
                     <TextView
                         android:id="@+id/tv_list"
-                        android:layout_width="75dp"
+                        android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="List" />
@@ -228,11 +229,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingStart="15dp">
+                    android:paddingStart="0dp">
 
                     <TextView
                         android:id="@+id/tv_grid"
-                        android:layout_width="75dp"
+                        android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
                         android:text="Grid" />

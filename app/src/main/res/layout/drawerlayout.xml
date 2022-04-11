@@ -16,10 +16,10 @@
         android:layout_height="22dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="7dp"
+        android:onClick="onClickClose"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="onClickClose"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dw_font"

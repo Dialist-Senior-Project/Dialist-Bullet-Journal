@@ -59,4 +59,11 @@
 
     </LinearLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/t_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:theme="@style/Theme.Dialist.Transparent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

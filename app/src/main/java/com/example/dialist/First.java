@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,9 +18,12 @@ import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.content.Context;
@@ -31,6 +35,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +44,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -52,13 +58,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.snapshot.Index;
 
+import java.util.Calendar;
 import java.util.Iterator;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class First extends AppCompatActivity {
     public static final int REQUEST_PERMISSION = 11;
@@ -84,14 +93,56 @@ public class First extends AppCompatActivity {
     public static int num_page = 1;
 
     private DatabaseReference mDatabase;
-    public static Context context_first;
+    //public static Context context_first;
+
+    float relatValX, relatValY;
+    float oriX, oriY;
+    boolean longTch = false;
+    public Context context2;
+    ConstraintLayout thisLayout;
+    int viewWidth, viewHeight;
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        int resint = data.getIntExtra("sel", 0);
+        Toast.makeText(getApplicationContext(), "sel == "+resint, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "pager == "+mPager.getCurrentItem(), Toast.LENGTH_SHORT).show();
+
+        //Long id = pagerAdapter.getItemId(1);
+        thisLayout = findViewById(R.id.t_layout);
+
+        //mPager.getId()
+        FragmentManager fm = getSupportFragmentManager();
+        //Page_2 pg = (Page_2) fm.findFragmentByTag("page2");
+        //Page_2 pg = new Page_2("k", 0);
+        fm.beginTransaction()
+                //.replace(mPager.getCurrentItem(), pg)
+                //.add(pg, "page2")
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
+        //getSupportFragmentManager().executePendingTransactions();
+        //fm.executePendingTransactions();
+
+
+        //pg.createEditbox();
+        createEditbox();
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        context_first = this;
+        thisLayout = findViewById(R.id.t_layout);
+
+        Display display = getWindowManager().getDefaultDisplay();  // in Activity
+        Point size = new Point();
+        display.getSize(size);
+        viewWidth = size.x;
+        viewHeight = size.y;
 
         //사용자 정보 받아오기
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -189,6 +240,7 @@ public class First extends AppCompatActivity {
             Intent pwd_intent = new Intent(getApplication(), PasswordReset.class);
             startActivity(pwd_intent);
             mDrawerLayout.closeDrawers();
+            thisLayout.setVisibility(View.VISIBLE);
         });
         (findViewById(R.id.dw_logout)).setOnClickListener(view -> {
             Intent logout_intent = new Intent(getApplication(), Really_Delete_email.class);
@@ -240,6 +292,7 @@ public class First extends AppCompatActivity {
 
         // readmode
         (findViewById(R.id.ab_menu)).setOnClickListener(view -> {
+            thisLayout.setVisibility(View.GONE);
             mDrawerLayout.openDrawer(mDrawer);
         });
 
@@ -295,13 +348,19 @@ public class First extends AppCompatActivity {
         });
 
 
-        /*********************/
-        /*****여기서 시작 *****/
-        /*********************/
         (findViewById(R.id.ab_add)).setOnClickListener(view -> {
+            /*Page_2 pg = (Page_2) getSupportFragmentManager().findFragmentByTag("tag_page2");
+            if(pg == null)
+                Toast.makeText(getApplicationContext(), "null", Toast.LENGTH_SHORT).show();
+            else
+                pg.createEditbox();*/
+            //BlankFragment b = BlankFragment.getInstance();
+            //b.show(getSupportFragmentManager(), BlankFragment.TAG_EVENT_DIALOG);
             Intent intent = new Intent(this, Add_items.class);
             startActivity(intent);
         });
+
+
         (findViewById(R.id.ab_allpage)).setOnClickListener(view -> {
             Intent intent = new Intent(First.this, AllPages.class);
             mStartForResult.launch(intent);
@@ -361,6 +420,258 @@ public class First extends AppCompatActivity {
         });
     }
 
+
+
+    public void insertItem(int selected) {
+        switch (selected) {
+            case 1:
+                Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_LONG).show();
+                createEditbox();
+                break;
+            case 2:
+                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_LONG).show();
+                createCheckbox();
+                break;
+            case 3:
+                Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_LONG).show();
+                createPaint();
+                break;
+            case 4:
+                Toast.makeText(getApplicationContext(), "4", Toast.LENGTH_LONG).show();
+                createPageLink();
+                break;
+            case 5:
+                Toast.makeText(getApplicationContext(), "5", Toast.LENGTH_LONG).show();
+                createTime();
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "예외 값", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void createEditbox() {
+        EditText editText = new EditText(getApplicationContext());
+        editText.setPadding(30, 10, 30, 10);
+        editText.setHint("배치 후 터치하세요");
+
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        //params.leftMargin = 100;
+
+        editText.setLayoutParams(params);
+        editText.setBackgroundColor(Color.rgb(255,255,255));
+        //editText.setShowSoftInputOnFocus(false);
+        editText.setX(viewWidth/3);
+        editText.setY(viewHeight/2);
+
+        thisLayout.addView(editText);
+
+        editText.setClickable(true);
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editText.requestFocus();
+                editText.getShowSoftInputOnFocus();
+            }
+        });
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    ((First)First.mContext).mPager.setUserInputEnabled(false);
+
+                    relatValX = event.getX();
+                    relatValY = event.getY();
+                    editText.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            longTch = true;
+                            return true;
+                        }
+                    });
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    longTch = false;
+                    ((First)First.mContext).mPager.setUserInputEnabled(true);
+                    //editText.setShowSoftInputOnFocus(true);
+                } //editText.setOnEditorActionListener();
+
+                if (longTch) {
+                    if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                        oriX = event.getRawX() - relatValX;
+                        oriY = event.getRawY() - (relatValY + v.getHeight());
+                        if (oriX % 50 < 25) {
+                            v.setX(oriX - (oriX % 50));
+                        }
+                        if (oriY % 50 < 25) {
+                            v.setY(oriY - (oriY % 50));
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    public void createCheckbox() {
+        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        linearLayout.setLayoutParams(params);
+
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setPadding(30, 20, 30, 20);
+        linearLayout.setBackgroundColor(Color.rgb(255,255,255));
+        linearLayout.setX(viewWidth/4);
+        linearLayout.setY(viewHeight/2);
+
+        CheckBox checkBox = new CheckBox(linearLayout.getContext());
+        checkBox.setText("");
+        linearLayout.addView(checkBox);
+        EditText editText = new EditText(linearLayout.getContext());
+        editText.setHint("배치 후 클릭하세요.");
+        linearLayout.addView(editText);
+
+        thisLayout.addView(linearLayout);
+
+        linearLayout.setClickable(true);
+        linearLayout.setOnTouchListener(touchListener);
+        /*editText.setClickable(true);
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    ((First)First.mContext).mPager.setUserInputEnabled(false);
+
+                    relatValX = event.getX();
+                    relatValY = event.getY();
+                    checkBox.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            longTch = true;
+                            return true;
+                        }
+                    });
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    longTch = false;
+                    ((First)First.mContext).mPager.setUserInputEnabled(true);
+                }
+
+                if (longTch) {
+                    if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                        oriX = event.getRawX() - relatValX;
+                        oriY = event.getRawY() - (relatValY + v.getHeight());
+                        if (oriX % 50 < 25) {
+                            linearLayout.setX(oriX - (oriX % 50));
+                        }
+                        if (oriY % 50 < 25) {
+                            linearLayout.setY(oriY - (oriY % 50));
+                        }
+                    }
+                }
+                return false;
+            }
+        });*/
+    }
+
+    public void createPaint() {
+        Intent intent = new Intent(getApplicationContext(), PaintView.class);
+        startActivity(intent);
+    }
+
+    public void createPageLink() {
+        //
+    }
+
+    public void createTime() {
+        Date now = Calendar.getInstance().getTime();
+        String textFormat = "yyyy. M. d. EE.";
+        String nowText = new SimpleDateFormat(textFormat, Locale.getDefault()).format(now);
+
+        TextView textView = new TextView(getApplicationContext());
+        textView.setText(nowText);
+        textView.setPadding(30, 10, 30, 10);
+        textView.setBackgroundColor(Color.rgb(255,255,255));
+        textView.setX(viewWidth/3);
+        textView.setY(viewHeight/2);
+
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT);
+
+        textView.setLayoutParams(params);
+        thisLayout.addView(textView);
+
+        textView.setClickable(true);
+        textView.setOnTouchListener(touchListener);
+    }
+
+    public void createTable() {
+        //
+    }
+
+    public void createList() {
+        //
+    }
+
+    public void createGrid() {
+        //
+    }
+
+
+    View.OnTouchListener touchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                ((First) mContext).mPager.setUserInputEnabled(false);
+                relatValX = event.getX();
+                relatValY = event.getY();
+                view.setOnLongClickListener(longClickListener);
+            }
+            else if (event.getAction() == MotionEvent.ACTION_UP) {
+                longTch = false;
+                //((First)First.context_first).mPager.setUserInputEnabled(true);
+                ((First) mContext).mPager.setUserInputEnabled(true);
+            }
+
+            if (longTch) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    oriX = event.getRawX() - relatValX;
+                    oriY = event.getRawY() - (relatValY + view.getHeight());
+                    if (oriX % 50 < 25) {
+                        view.setX(oriX - (oriX % 50));
+                    }
+                    if (oriY % 50 < 25) {
+                        view.setY(oriY - (oriY % 50));
+                    }
+                }
+            }
+            return false;
+        }
+    };
+
+    View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+            longTch = true;
+            return false;
+        }
+    };
+
+
+
+
+
+    public int getCurrentItemNum() { return mPager.getCurrentItem(); }
+
+
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -368,10 +679,12 @@ public class First extends AppCompatActivity {
 
         @Override
         public void onDrawerOpened(@NonNull View drawerView) {
+            //thisLayout.setVisibility(View.GONE);
         }
 
         @Override
         public void onDrawerClosed(@NonNull View drawerView) {
+            thisLayout.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -427,7 +740,7 @@ public class First extends AppCompatActivity {
     }
 
     public void onClickEdit(View view) {
-        findViewById(R.id.ab_editoff).setVisibility(View.VISIBLE);
+        /*findViewById(R.id.ab_editoff).setVisibility(View.VISIBLE);
         findViewById(R.id.ab_add).setVisibility(View.VISIBLE);
         findViewById(R.id.ab_allpage).setVisibility(View.VISIBLE);
 
@@ -439,7 +752,7 @@ public class First extends AppCompatActivity {
 
         pagerAdapter = new PageAdapter(this, num_page, 1);
         mPager.setAdapter(pagerAdapter);
-        mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);*/
     }
 
     public void onClickShare(View view) {
@@ -527,6 +840,7 @@ public class First extends AppCompatActivity {
     // drawer menu
     public void onClickClose(View view) {
         mDrawerLayout.closeDrawers();
+        thisLayout.setVisibility(View.VISIBLE);
     }
 
     public void onClickThema1(View view) {
@@ -556,6 +870,7 @@ public class First extends AppCompatActivity {
         Intent pwd_intent = new Intent(getApplication(), PasswordReset.class);
         startActivity(pwd_intent);
         mDrawerLayout.closeDrawers();
+        thisLayout.setVisibility(View.VISIBLE);
     }
 
     public void onClickLogout(View view) {

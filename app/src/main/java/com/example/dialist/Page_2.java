@@ -1,5 +1,6 @@
 package com.example.dialist;
 
+import static com.example.dialist.First.mContext;
 import static com.example.dialist.First.num_page;
 
 import android.content.Context;
@@ -10,29 +11,42 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Page_2 extends Fragment {
     int pagenum;
 
-    //ConstraintLayout layout;
     ConstraintLayout thisLayout;
     float relatValX, relatValY;
     float oriX, oriY;
     boolean longTch = false;
-    int sel = 0;
+    private int sel = 0;
     public static Context context_pg2;
     int once = 0;
     ViewGroup rootView;
-    CheckBox checkBoxV;
+    private View header;
+    private Adapter adapter;
+
+    public Page_2(String key, int currPg, int sel, Context ctx) {
+        this.sel = sel;
+        pagenum = currPg;
+        createEditbox();
+    }
 
     public Page_2(int i) {
         if(num_page<i) {
@@ -44,35 +58,48 @@ public class Page_2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = (ViewGroup) inflater.inflate(
-                R.layout.page_2, container, false);
+        rootView = (ViewGroup) inflater.inflate(R.layout.page_2, container, false);
+        LayoutInflater inflater2 = getLayoutInflater();
+        View v1 = inflater2.inflate(R.layout.page_2, null);
 
         context_pg2 = getContext();
 
-        /* ----- 임시 버튼 ----- */
-        Button btntb = rootView.findViewById(R.id.btntb);
+        /* ------- 임시 ------- */
+        Button btntb = rootView.findViewById(R.id.btn11);
         btntb.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                createEditbox();
-            }
+            public void onClick(View view) { createTime(); }
         });
-        Button btncb = rootView.findViewById(R.id.btncb);
+        Button btncb = rootView.findViewById(R.id.btn22);
         btncb.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View view) { createCheckbox(); }
+        });
+        Button btn33 = rootView.findViewById(R.id.btn33);
+        btn33.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                createCheckbox();
+                Intent intent = new Intent(getActivity(), PaintView.class);
+                startActivity(intent);
             }
         });
         /* -------------------- */
 
+        /*Button btn_insert = ((Add_items) Add_items.context_additem).button;
+        try {
+            btn_insert.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    createEditbox();
+                    Toast.makeText(getContext(), "okok", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (NullPointerException e) {
+            Toast.makeText(getContext(), "null 발생", Toast.LENGTH_SHORT).show();
+        }*/
+
+
         thisLayout = rootView.findViewById(R.id.p_layout);
-        thisLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                thisLayout.requestFocus();
-            }
-        });
 
         TextView pagenumtext = (TextView) rootView.findViewById(R.id.pagenumtext);
         pagenumtext.setText(String.valueOf(pagenum));
@@ -80,10 +107,20 @@ public class Page_2 extends Fragment {
         return rootView;
     }
 
+    public void setSelectedVal(int newSelectedVal)
+    {
+        if(newSelectedVal != sel)
+        {
+            onSelectedValueChanged(sel);
+            sel = newSelectedVal;
+        }
+    }
+
+    public void onSelectedValueChanged(int val) {
+        insertItem(val);
+    }
 
     public void insertItem(int sel) {
-        Toast.makeText(getContext(), "함수 진입 성공", Toast.LENGTH_LONG).show();
-        createEditbox();
         /*switch (sel) {
             case 1:
                 Toast.makeText(getContext(), "1 전달됨", Toast.LENGTH_SHORT).show();
@@ -110,8 +147,7 @@ public class Page_2 extends Fragment {
 
     public void createEditbox() {
         EditText editText = new EditText(getContext());
-        editText.setText("배치 후 터치하세요");
-        //editText.setWidth(350);
+        editText.setHint("배치 후 터치하세요");
         editText.setPadding(30, 10, 30, 10);
 
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
@@ -129,7 +165,6 @@ public class Page_2 extends Fragment {
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editText.setText("");
                 editText.requestFocus();
                 editText.getShowSoftInputOnFocus();
             }
@@ -138,7 +173,7 @@ public class Page_2 extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    ((First)First.context_first).mPager.setUserInputEnabled(false);
+                    ((First)First.mContext).mPager.setUserInputEnabled(false);
 
                     relatValX = event.getX();
                     relatValY = event.getY();
@@ -151,7 +186,7 @@ public class Page_2 extends Fragment {
                     });
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     longTch = false;
-                    ((First)First.context_first).mPager.setUserInputEnabled(true);
+                    ((First)First.mContext).mPager.setUserInputEnabled(true);
                     //editText.setShowSoftInputOnFocus(true);
                 } //editText.setOnEditorActionListener();
 
@@ -174,10 +209,70 @@ public class Page_2 extends Fragment {
 
 
     public void createCheckbox() {
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        linearLayout.setLayoutParams(params);
+
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setPadding(30, 20, 30, 20);
+        linearLayout.setBackgroundColor(Color.rgb(255,255,255));
+
+        CheckBox checkBox = new CheckBox(linearLayout.getContext());
+        checkBox.setText("");
+        linearLayout.addView(checkBox);
+        EditText editText = new EditText(linearLayout.getContext());
+        editText.setHint("배치 후 클릭하세요.");
+        linearLayout.addView(editText);
+
+        thisLayout.addView(linearLayout);
+
+        linearLayout.setClickable(true);
+        linearLayout.setOnTouchListener(touchListener);
+        /*editText.setClickable(true);
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    ((First)First.mContext).mPager.setUserInputEnabled(false);
+
+                    relatValX = event.getX();
+                    relatValY = event.getY();
+                    checkBox.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            longTch = true;
+                            return true;
+                        }
+                    });
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    longTch = false;
+                    ((First)First.mContext).mPager.setUserInputEnabled(true);
+                }
+
+                if (longTch) {
+                    if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                        oriX = event.getRawX() - relatValX;
+                        oriY = event.getRawY() - (relatValY + v.getHeight());
+                        if (oriX % 50 < 25) {
+                            linearLayout.setX(oriX - (oriX % 50));
+                        }
+                        if (oriY % 50 < 25) {
+                            linearLayout.setY(oriY - (oriY % 50));
+                        }
+                    }
+                }
+                return false;
+            }
+        });*/
+
+    }
+
+
+    /*public void createCheckboxx() {
         CheckBox checkBox = new CheckBox(getContext());
         //LinearLayout checkbox = rootView.findViewById(R.id.a_checkbox);
-        checkBox.setText("배치 후 터치하세요");
-        //checkBox.setHint("배치 후 터치하세요");
+        checkBox.setHint("배치 후 터치하세요");
         checkBox.setPadding(30, 10, 30, 10);
 
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
@@ -194,17 +289,19 @@ public class Page_2 extends Fragment {
             @Override
             public void onClick(View view) {
                 checkBox.setChecked(false);
-                Intent intent = new Intent(getContext(), edit_chkbox_content.class);
-                startActivityForResult(intent, 110);
-                //Toast.makeText(getContext(), "@@@@@@@@@", Toast.LENGTH_LONG).show();
-                checkBoxV = checkBox;
+                //Intent intent = new Intent(getContext(), edit_chkbox_content.class);
+                //startActivityForResult(intent, 110);
+                ////Toast.makeText(getContext(), "@@@@@@@@@", Toast.LENGTH_LONG).show();
+                //checkBoxV = checkBox;
+                checkBox.requestFocus();
+                checkBox.getShowSoftInputOnFocus();
             }
         });
         checkBox.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    ((First)First.context_first).mPager.setUserInputEnabled(false);
+                    ((First)First.mContext).mPager.setUserInputEnabled(false);
 
                     relatValX = event.getX();
                     relatValY = event.getY();
@@ -217,7 +314,7 @@ public class Page_2 extends Fragment {
                     });
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     longTch = false;
-                    ((First)First.context_first).mPager.setUserInputEnabled(true);
+                    ((First)First.mContext).mPager.setUserInputEnabled(true);
                     //editText.setShowSoftInputOnFocus(true);
                 } //editText.setOnEditorActionListener();
 
@@ -236,18 +333,12 @@ public class Page_2 extends Fragment {
                 return false;
             }
         });
-    }
+    }*/
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        String s = data.getStringExtra("cntt");
-        //Toast.makeText(getContext(), "!!!!!", Toast.LENGTH_SHORT).show();
-        checkBoxV.setText(s);
-    }
 
     public void createPaint() {
-        //
+        Intent intent = new Intent(getActivity(), PaintView.class);
+        startActivity(intent);
     }
 
 
@@ -257,7 +348,35 @@ public class Page_2 extends Fragment {
 
 
     public void createTime() {
-        //
+        Date now = Calendar.getInstance().getTime();
+        /*SimpleDateFormat weekdayF = new SimpleDateFormat("EE", Locale.getDefault());
+        SimpleDateFormat dayF = new SimpleDateFormat("d", Locale.getDefault());
+        SimpleDateFormat monthF = new SimpleDateFormat("M", Locale.getDefault());
+        SimpleDateFormat yearF = new SimpleDateFormat("yyyy", Locale.getDefault());
+        String weekDay = weekdayF.format(now);
+        String year = yearF.format(now);
+        String month = monthF.format(now);
+        String day = dayF.format(now);*/
+        //int dayOfWeek = Calendar.DAY_OF_WEEK;
+        //String weekday = new DateFormatSymbols().getShortWeekdays()[dayOfWeek];
+
+        String textFormat = "yyyy. M. d. EE.";
+        String nowText = new SimpleDateFormat(textFormat, Locale.getDefault()).format(now);
+
+        TextView textView = new TextView(getContext());
+        textView.setText(nowText);
+        textView.setPadding(30, 10, 30, 10);
+        textView.setBackgroundColor(Color.rgb(255,255,255));
+
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT);
+
+        textView.setLayoutParams(params);
+        thisLayout.addView(textView);
+
+        textView.setClickable(true);
+        textView.setOnTouchListener(touchListener);
     }
 
 
@@ -274,4 +393,46 @@ public class Page_2 extends Fragment {
     public void createGrid() {
         //
     }
+
+
+    View.OnTouchListener touchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                ((First) mContext).mPager.setUserInputEnabled(false);
+                relatValX = event.getX();
+                relatValY = event.getY();
+                view.setOnLongClickListener(longClickListener);
+            }
+            else if (event.getAction() == MotionEvent.ACTION_UP) {
+                longTch = false;
+                //((First)First.context_first).mPager.setUserInputEnabled(true);
+                ((First) mContext).mPager.setUserInputEnabled(true);
+            }
+
+            if (longTch) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    oriX = event.getRawX() - relatValX;
+                    oriY = event.getRawY() - (relatValY + view.getHeight());
+                    if (oriX % 50 < 25) {
+                        view.setX(oriX - (oriX % 50));
+                    }
+                    if (oriY % 50 < 25) {
+                        view.setY(oriY - (oriY % 50));
+                    }
+                }
+            }
+            return false;
+        }
+    };
+
+    View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+            longTch = true;
+            return false;
+        }
+    };
+
+
 }
