@@ -164,7 +164,7 @@ public class First extends AppCompatActivity {
         //만약 처음이라면 DB에 첫장이 저장된다.
         enEmail = email.replace(".", ",");
         DB(enEmail, 1, "Notthing", 0, 0, 0, 0, "blank");
-        DBColor(enEmail, 1);
+        //DBColor(enEmail);
 
         //DB에 저장된 데이터를 불러오자.
         //일단 먼저 페이지가 몇장인지
@@ -319,6 +319,8 @@ public class First extends AppCompatActivity {
             pagerAdapter = new PageAdapter(this, num_page, 1);
             mPager.setAdapter(pagerAdapter);
             mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+
+            mPager.setCurrentItem(now_page-1, true);
         });
 
         /*
@@ -353,7 +355,8 @@ public class First extends AppCompatActivity {
 
             mPager.setUserInputEnabled(true);
             mPager.setCurrentItem(0, true);
-            Toast.makeText(First.this, "그림판 끔", Toast.LENGTH_SHORT).show();
+
+            mPager.setCurrentItem(now_page-1, true);
         });
 
 
@@ -997,10 +1000,10 @@ public class First extends AppCompatActivity {
         });
     }
 
-    private void DBColor(String Email, int page){
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+    private void DBColor(String Email){
+        /*mDatabase = FirebaseDatabase.getInstance().getReference();
         DBColor thing = new DBColor(-16777216, 0, 0, 0, 0, -16777216);
-        mDatabase.child("User").child(Email).child(String.valueOf(page)).child("BrushColors").setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mDatabase.child("User").child(Email).child("BrushColors").setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getApplicationContext(), "DBC성공", Toast.LENGTH_SHORT).show();
@@ -1011,6 +1014,6 @@ public class First extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "DBC실패", Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
     }
 }

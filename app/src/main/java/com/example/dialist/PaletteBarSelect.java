@@ -22,13 +22,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class PaletteBarSelect extends Activity {
-    public static int clickbutton=1;
-    public static int color1=-16777216;
-    public static int color2=0;
-    public static int color3=0;
-    public static int color4=0;
-    public static int color5=0;
-    public static int color=0;
+    int clickbutton=1;
+    int color=0;
+    int color1=-0;
+    int color2=0;
+    int color3=0;
+    int color4=0;
+    int color5=0;
+    int cnt=0;
 
     private DatabaseReference mDatabase;
 
@@ -45,34 +46,45 @@ public class PaletteBarSelect extends Activity {
 
         //final int[][] colors = {new int[0]};
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(First.now_page)).child("BrushColors");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child("BrushColors");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
-                //while (child.hasNext()) {
-                //    colors[0] = (int[]) child.next().getValue();
-                //}
-                /*
-                for (DataSnapshot postsnapshot: snapshot.getChildren()) {
-                    String key = postsnapshot.getKey();
-                    ColorPost get = postsnapshot.getValue(ColorPost.class);
-                    int[] info = {get.c1, get.c2, get.c3, get.c4, get.c5};
-                    button1.setBackgroundColor(info[0]);
-                    button2.setBackgroundColor(info[1]);
-                    button3.setBackgroundColor(info[2]);
-                    button4.setBackgroundColor(info[3]);
-                    button5.setBackgroundColor(info[4]);
+                Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
+                while (child.hasNext()) {
+                    switch(cnt){
+                        case 0:
+                            color=Integer.parseInt(child.next().getValue().toString());
+                            cnt=1;
+                            break;
+                        case 1:
+                            color1=Integer.parseInt(child.next().getValue().toString());
+                            cnt=2;
+                            break;
+                        case 2:
+                            color2=Integer.parseInt(child.next().getValue().toString());
+                            cnt=3;
+                            break;
+                        case 3:
+                            color3=Integer.parseInt(child.next().getValue().toString());
+                            cnt=4;
+                            break;
+                        case 4:
+                            color4=Integer.parseInt(child.next().getValue().toString());
+                            cnt=5;
+                            break;
+                        case 5:
+                            color5=Integer.parseInt(child.next().getValue().toString());
+                            cnt=0;
 
-                    String key = postsnapshot.getKey();
-                    HashMap<String, Integer> colorInfo = (HashMap<String, Integer>) postsnapshot.getValue();
-                    int[] getData = {colorInfo.get("c1"), colorInfo.get("c2"), colorInfo.get("c3"), colorInfo.get("c4"), colorInfo.get("c5")};
-                    button1.setBackgroundColor(getData[0]);
-                    button2.setBackgroundColor(getData[1]);
-                    button3.setBackgroundColor(getData[2]);
-                    button4.setBackgroundColor(getData[3]);
-                    button5.setBackgroundColor(getData[4]);
-                }*/
+                            button1.setBackgroundColor(color1);
+                            button2.setBackgroundColor(color2);
+                            button3.setBackgroundColor(color3);
+                            button4.setBackgroundColor(color4);
+                            button5.setBackgroundColor(color5);
+                            break;
+                    }
+                }
             }
 
             @Override
@@ -148,10 +160,14 @@ public class PaletteBarSelect extends Activity {
     }
 
 
+    private void displayMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
     private void DBColor(int c1, int c2, int c3, int c4, int c5, int c){
         mDatabase = FirebaseDatabase.getInstance().getReference();
         DBColor thing = new DBColor(c1, c2, c3, c4, c5, c);
-        mDatabase.child("User").child(First.enEmail).child(String.valueOf(First.now_page)).child("BrushColors").setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mDatabase.child("User").child(First.enEmail).child("BrushColors").setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getApplicationContext(), "DBC성공", Toast.LENGTH_SHORT).show();

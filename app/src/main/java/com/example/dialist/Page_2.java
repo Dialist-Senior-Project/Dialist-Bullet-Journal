@@ -204,7 +204,7 @@ public class Page_2 extends Fragment {
 
                 }
             });
-            mPaint.setColor(brushcolor);
+            mPaint.setColor(Page_1.brushcolor);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mPath.reset();
