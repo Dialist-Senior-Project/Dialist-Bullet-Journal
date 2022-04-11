@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,14 +60,13 @@ public class Page_1 extends Fragment {
         myView = new MyPaintView(getActivity().getApplicationContext());
         ((LinearLayout) rootView.findViewById(R.id.paintLayout)).addView(myView);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(pagenum)).child("Brush");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(First.now_page)).child("BrushColors");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
-                while (child.hasNext()) {
-                    num_page = Integer.parseInt(child.next().getKey());
-                }
+                //HashMap<String, HashMap<String, Object>> colorInfo = (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
+                //String getData = colorInfo.get("c").toString();
+                //brushcolor=Integer.parseInt(getData);
             }
 
             @Override
@@ -111,6 +112,20 @@ public class Page_1 extends Fragment {
         public boolean onTouchEvent(MotionEvent event) {
             int x = (int) event.getX();
             int y = (int) event.getY();
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(First.now_page)).child("BrushColors");
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //HashMap<String, HashMap<String, Object>> colorInfo = (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
+                    //String getData = colorInfo.get("c").toString();
+                    //brushcolor=Integer.parseInt(getData);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
             mPaint.setColor(brushcolor);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
