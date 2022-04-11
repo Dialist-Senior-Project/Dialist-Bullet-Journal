@@ -34,6 +34,8 @@ public class Add_items extends AppCompatActivity {
     int selected = 0;
     public static Context context_additem;
     static Button button;
+    int colorGray = Color.rgb(200,200,200);
+    FrameLayout editbox, checkbox, paint, pagelink, time, table, list, grid;
 
     public Add_items() {
         //
@@ -60,6 +62,7 @@ public class Add_items extends AppCompatActivity {
 
                 finish();
                 ((First)First.mContext).insertItem(selected);
+                selected = 0;
 
                 //  //Page_2 myFragment = new Page_2("f()", currentPg, selected, context);
                 //Bundle bundle = new Bundle(1); // 파라미터의 숫자는 전달하려는 값의 갯수
@@ -68,156 +71,207 @@ public class Add_items extends AppCompatActivity {
             }
         });
 
-        FrameLayout editbox = findViewById(R.id.tch_txtbox);
+         editbox = findViewById(R.id.tch_txtbox);
         editbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 1;
-                editbox.setBackgroundColor(Color.rgb(200, 200, 200));
+                editbox.setBackgroundColor(colorGray);
             }
         });
         ImageView editbox2 = findViewById(R.id.img_txtbox);
         editbox2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 1;
-                editbox.setBackgroundColor(Color.rgb(200, 200, 200));
+                editbox.setBackgroundColor(colorGray);
             }
         });
         TextView editbox3 = findViewById(R.id.tv_txtbox);
         editbox3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 1;
-                editbox.setBackgroundColor(Color.rgb(200, 200, 200));
+                editbox.setBackgroundColor(colorGray);
             }
         });
 
-        FrameLayout checkbox = findViewById(R.id.tch_chkbox);
+         checkbox = findViewById(R.id.tch_chkbox);
         checkbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 2;
+                checkbox.setBackgroundColor(colorGray);
             }
         });
         ImageView checkbox2 = findViewById(R.id.img_chkbox);
         checkbox2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 2;
-                checkbox.setBackgroundColor(Color.rgb(200, 200, 200));
+                checkbox.setBackgroundColor(colorGray);
             }
         });
         TextView checkbox3 = findViewById(R.id.tv_chkbox);
         checkbox3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 2;
-                checkbox.setBackgroundColor(Color.rgb(200, 200, 200));
+                checkbox.setBackgroundColor(colorGray);
             }
         });
 
-        FrameLayout paint = findViewById(R.id.tch_paint);
+         paint = findViewById(R.id.tch_paint);
         paint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 3;
+                paint.setBackgroundColor(colorGray);
             }
         });
         ImageView paint2 = findViewById(R.id.img_paint);
         paint2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 3;
-                paint.setBackgroundColor(Color.rgb(200, 200, 200));
+                paint.setBackgroundColor(colorGray);
             }
         });
         TextView paint3 = findViewById(R.id.tv_paint);
         paint3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 3;
-                paint.setBackgroundColor(Color.rgb(200, 200, 200));
+                paint.setBackgroundColor(colorGray);
             }
         });
 
-        FrameLayout pagelink = findViewById(R.id.tch_link);
+         pagelink = findViewById(R.id.tch_link);
         pagelink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 4;
+                pagelink.setBackgroundColor(colorGray);
             }
         });
         ImageView pagelink2 = findViewById(R.id.img_link);
         pagelink2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 4;
-                pagelink.setBackgroundColor(Color.rgb(200, 200, 200));
+                pagelink.setBackgroundColor(colorGray);
             }
         });
         TextView pagelink3 = findViewById(R.id.tv_link);
         pagelink3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 4;
-                pagelink.setBackgroundColor(Color.rgb(200, 200, 200));
+                pagelink.setBackgroundColor(colorGray);
             }
         });
 
-        FrameLayout time = findViewById(R.id.tch_time);
+         time = findViewById(R.id.tch_time);
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 5;
+                time.setBackgroundColor(colorGray);
             }
         });
         ImageView time2 = findViewById(R.id.img_time);
         time2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 5;
-                time.setBackgroundColor(Color.rgb(200, 200, 200));
+                time.setBackgroundColor(colorGray);
             }
         });
         TextView time3 = findViewById(R.id.tv_time);
         time3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 5;
-                time.setBackgroundColor(Color.rgb(200, 200, 200));
+                time.setBackgroundColor(colorGray);
             }
         });
 
-        FrameLayout table = findViewById(R.id.tch_table);
-        editbox.setOnClickListener(new View.OnClickListener() {
+         table = findViewById(R.id.tch_table);
+        table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 6;
+                table.setBackgroundColor(colorGray);
             }
         });
 
-        FrameLayout list = findViewById(R.id.tch_list);
-        editbox.setOnClickListener(new View.OnClickListener() {
+         list = findViewById(R.id.tch_list);
+        list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 7;
+                list.setBackgroundColor(colorGray);
             }
         });
 
-        FrameLayout grid = findViewById(R.id.tch_grid);
-        editbox.setOnClickListener(new View.OnClickListener() {
+         grid = findViewById(R.id.tch_grid);
+        grid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bgColorWhite(selected);
                 selected = 8;
+                grid.setBackgroundColor(colorGray);
             }
         });
 
-        //Intent intent = new Intent();
-        //finish();
     }
 
 
+    public void bgColorWhite(int sel) {
+        switch (sel) {
+            case 1:
+                editbox.setBackgroundColor(Color.WHITE);
+                break;
+            case 2:
+                checkbox.setBackgroundColor(Color.WHITE);
+                break;
+            case 3:
+                paint.setBackgroundColor(Color.WHITE);
+                break;
+            case 4:
+                pagelink.setBackgroundColor(Color.WHITE);
+                break;
+            case 5:
+                time.setBackgroundColor(Color.WHITE);
+                break;
+            case 6:
+                table.setBackgroundColor(Color.WHITE);
+                break;
+            case 7:
+                list.setBackgroundColor(Color.WHITE);
+                break;
+            case 8:
+                grid.setBackgroundColor(Color.WHITE);
+                break;
+        }
+    }
 
     public void add_real_item() {
         finish();

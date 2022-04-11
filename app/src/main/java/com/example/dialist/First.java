@@ -395,6 +395,8 @@ public class First extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                thisLayout.removeAllViews();
+
                 if (positionOffsetPixels == 0) {
                     mPager.setCurrentItem(position);
                     if (firsttoast != 0) {
