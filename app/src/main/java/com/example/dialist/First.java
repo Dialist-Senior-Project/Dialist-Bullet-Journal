@@ -434,7 +434,9 @@ public class First extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                thisLayout.removeAllViews();
+                // 기존 페이지 내용 삭제
+                //thisLayout.removeAllViews();
+                // 해당 페이지 저장된 내용 불러오기
 
                 if (positionOffsetPixels == 0) {
                     mPager.setCurrentItem(position);
@@ -513,6 +515,7 @@ public class First extends AppCompatActivity {
         //editText.setShowSoftInputOnFocus(false);
         editText.setX(viewWidth/3);
         editText.setY(viewHeight/2);
+        editText.setBackgroundResource(R.drawable.background);
 
         thisLayout.addView(editText);
 
@@ -573,6 +576,8 @@ public class First extends AppCompatActivity {
         linearLayout.setBackgroundColor(Color.rgb(255,255,255));
         linearLayout.setX(viewWidth/4);
         linearLayout.setY(viewHeight/2);
+        linearLayout.setBackgroundResource(R.drawable.background);
+
 
         CheckBox checkBox = new CheckBox(linearLayout.getContext());
         checkBox.setText("");
@@ -643,6 +648,7 @@ public class First extends AppCompatActivity {
         textView.setBackgroundColor(Color.rgb(255,255,255));
         textView.setX(viewWidth/3);
         textView.setY(viewHeight/2);
+        textView.setBackgroundResource(R.drawable.background);
 
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,
