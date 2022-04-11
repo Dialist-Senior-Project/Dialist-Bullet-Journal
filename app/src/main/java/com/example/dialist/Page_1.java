@@ -2,12 +2,14 @@ package com.example.dialist;
 
 import static com.example.dialist.First.num_page;
 
+import android.app.Notification;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,11 +19,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class Page_1 extends Fragment {
     int pagenum;
     private MyPaintView myView;
+    private DatabaseReference mDatabase;
+    public static int brushcolor = -16777216;
 
     public Page_1(int i) {
         if(num_page<i) {
@@ -41,6 +57,22 @@ public class Page_1 extends Fragment {
 
         myView = new MyPaintView(getActivity().getApplicationContext());
         ((LinearLayout) rootView.findViewById(R.id.paintLayout)).addView(myView);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(pagenum)).child("Brush");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
+                while (child.hasNext()) {
+                    num_page = Integer.parseInt(child.next().getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         return rootView;
     }
 
@@ -55,11 +87,10 @@ public class Page_1 extends Fragment {
             super(context);
             mPath = new Path();
             mPaint = new Paint();
-            mPaint.setColor(Color.RED);
+            mPaint.setColor(brushcolor);
             mPaint.setAntiAlias(true);
             mPaint.setStrokeWidth(10);
-            mPaint.setStyle(Paint.Style.STROKE);
-        }
+            mPaint.setStyle(Paint.Style.STROKE);        }
 
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -80,6 +111,7 @@ public class Page_1 extends Fragment {
         public boolean onTouchEvent(MotionEvent event) {
             int x = (int) event.getX();
             int y = (int) event.getY();
+            mPaint.setColor(brushcolor);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mPath.reset();

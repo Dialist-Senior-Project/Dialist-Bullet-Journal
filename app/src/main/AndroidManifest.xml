@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist">
         <activity
+            android:name=".PaletteBarSelect"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity
             android:name=".edit_chkbox_content"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity

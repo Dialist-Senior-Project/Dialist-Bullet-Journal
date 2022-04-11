@@ -73,7 +73,7 @@ public class First extends AppCompatActivity {
     private LinearLayout mView;
 
     String email;
-    String enEmail;
+    public static String enEmail;
     int mChecked = 0;
     int firsttoast = 0;
 
@@ -322,7 +322,11 @@ public class First extends AppCompatActivity {
             mPager.setCurrentItem(now_page-1, true);
             Toast.makeText(First.this, "그림판 끔", Toast.LENGTH_SHORT).show();
             findViewById(R.id.ab_drawbrush1).setVisibility(View.GONE);
+            findViewById(R.id.ab_brush_color).setVisibility(View.GONE);
+            findViewById(R.id.ab_brush_eraser).setVisibility(View.GONE);
             findViewById(R.id.ab_drawbrush2).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_allpage).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_add).setVisibility(View.VISIBLE);
             Toast.makeText(First.this, "now_page"+now_page, Toast.LENGTH_SHORT).show();
         });
 
@@ -332,8 +336,17 @@ public class First extends AppCompatActivity {
             mPager.setCurrentItem(now_page-1, false);
             Toast.makeText(First.this, "그림판 킴", Toast.LENGTH_SHORT).show();
             findViewById(R.id.ab_drawbrush1).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_brush_color).setVisibility(View.VISIBLE);
+            findViewById(R.id.ab_brush_eraser).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_drawbrush2).setVisibility(View.GONE);
+            findViewById(R.id.ab_allpage).setVisibility(View.GONE);
+            findViewById(R.id.ab_add).setVisibility(View.GONE);
             Toast.makeText(First.this, "now_page"+now_page, Toast.LENGTH_SHORT).show();
+        });
+
+        (findViewById(R.id.ab_brush_color)).setOnClickListener(view -> {
+            Intent intent = new Intent(First.this, PaletteBarSelect.class);
+            startActivity(intent);
         });
 
         //페이지 넘기기

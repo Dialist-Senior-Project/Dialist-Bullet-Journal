@@ -122,6 +122,27 @@
         android:visibility="gone"
         android:src="@drawable/ic_allpage"
         android:onClick="onClickAllPage"/>
+
+    <ImageView
+        android:id="@+id/ab_brush_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        android:src="@drawable/ic_baseline_color_lens_24" />
+
+    <ImageView
+        android:id="@+id/ab_brush_eraser"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        android:src="@drawable/icons8_eraser_30" />
+
     <ImageView
         android:id="@+id/ab_drawbrush1"
         android:layout_width="wrap_content"
@@ -140,4 +161,5 @@
         android:layout_gravity="end"
         android:visibility="gone"
         android:src="@drawable/ic_baseline_brush_25" />
+
 </androidx.appcompat.widget.Toolbar>
