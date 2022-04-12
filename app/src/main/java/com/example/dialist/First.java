@@ -103,6 +103,9 @@ public class First extends AppCompatActivity {
     ConstraintLayout thisLayout;
     int viewWidth, viewHeight;
 
+    int cnt = 0;
+    public static int brushcolor = -16777216;
+
     /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -164,17 +167,38 @@ public class First extends AppCompatActivity {
         //만약 처음이라면 DB에 첫장이 저장된다.
         enEmail = email.replace(".", ",");
         DB(enEmail, 1, "Notthing", 0, 0, 0, 0, "blank");
-        //DBColor(enEmail);
 
         //DB에 저장된 데이터를 불러오자.
         //일단 먼저 페이지가 몇장인지
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(enEmail);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(enEmail).child("Page");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
                 while (child.hasNext()) {
                     num_page = Integer.parseInt(child.next().getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //펜색 가져오기
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child("BrushColors");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
+                while (child.hasNext()) {
+                    if(cnt==0){
+                        brushcolor=Integer.parseInt(child.next().getValue().toString());
+                    }
+                    else {
+                        break;
+                    }
                 }
             }
 
@@ -985,7 +1009,7 @@ public class First extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         DB thing = new DB(x, y, xx, yy, value);
 
-        mDatabase.child("User").child(Email).child(String.valueOf(page)).child(Itemname).setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mDatabase.child("User").child(Email).child("Page").child(String.valueOf(page)).child(Itemname).setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
 
             @Override
             public void onSuccess(Void aVoid) {
@@ -998,22 +1022,5 @@ public class First extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void DBColor(String Email){
-        /*mDatabase = FirebaseDatabase.getInstance().getReference();
-        DBColor thing = new DBColor(-16777216, 0, 0, 0, 0, -16777216);
-        mDatabase.child("User").child(Email).child("BrushColors").setValue(thing).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(), "DBC성공", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "DBC실패", Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
     }
 }

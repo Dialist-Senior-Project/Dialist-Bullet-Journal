@@ -154,7 +154,7 @@ public class PaletteBarSelect extends Activity {
 
         (findViewById(R.id.colorOK)).setOnClickListener(view -> {
             DBColor(color1, color2, color3, color4, color5, color);
-            Page_1.brushcolor=color;
+            First.brushcolor=color;
             finish();
         });
     }
