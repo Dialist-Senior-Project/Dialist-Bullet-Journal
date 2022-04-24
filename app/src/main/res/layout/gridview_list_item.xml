@@ -9,6 +9,7 @@
     android:layout_gravity="center">
 
     <ImageView
+        android:id="@+id/pageImage"
         android:layout_width="140dp"
         android:layout_height="180dp"
         android:gravity="center"
@@ -16,14 +17,13 @@
         android:layout_marginBottom="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_launcher_foreground"
         android:background="@drawable/ic_launcher_background"/>
 
     <TextView
-        android:id="@+id/templateTitle"
+        android:id="@+id/pageTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="title"
+        android:text="context"
         android:textStyle="bold"
         android:textSize="24sp"
         android:gravity="center"/>

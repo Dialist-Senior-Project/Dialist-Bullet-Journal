@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="right"
     android:elevation="1dp"
+    android:background="@color/white"
     tools:context=".First">
 
     <!-- 설정 -->
@@ -16,7 +17,6 @@
         android:layout_height="22dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="7dp"
-        android:onClick="onClickClose"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -68,8 +68,7 @@
         app:layout_constraintBottom_toTopOf="@+id/dw_changePwd"
         app:layout_constraintEnd_toStartOf="@+id/dw_darkmode"
         app:layout_constraintStart_toEndOf="@+id/dw_thema1"
-        app:layout_constraintTop_toTopOf="@+id/dw_lang"
-        android:onClick="onClickSwitch"/>
+        app:layout_constraintTop_toTopOf="@+id/dw_lang"/>
 
     <TextView
         android:id="@+id/dw_lang"
@@ -125,8 +124,7 @@
         android:src="@drawable/img_others"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dw_tv_font"
-        app:layout_constraintTop_toBottomOf="@+id/dw_themaStore"
-        android:onClick="onClickFontStore"/>
+        app:layout_constraintTop_toBottomOf="@+id/dw_themaStore"/>
 
     <ImageView
         android:id="@+id/dw_themaStore"
@@ -135,8 +133,7 @@
         android:layout_marginTop="66dp"
         android:src="@drawable/img_others"
         app:layout_constraintStart_toStartOf="@+id/dw_fontStore"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="onClickThemaStore"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/dw_thema1"
@@ -145,8 +142,7 @@
         android:layout_marginEnd="9dp"
         android:src="@drawable/img_thema1"
         app:layout_constraintEnd_toStartOf="@+id/dw_thema2"
-        app:layout_constraintTop_toTopOf="@+id/dw_thema2"
-        android:onClick="onClickThema1"/>
+        app:layout_constraintTop_toTopOf="@+id/dw_thema2"/>
 
     <ImageView
         android:id="@+id/dw_thema2"
@@ -155,8 +151,7 @@
         android:layout_marginEnd="6dp"
         android:src="@drawable/img_thema2"
         app:layout_constraintEnd_toStartOf="@+id/dw_themaStore"
-        app:layout_constraintTop_toTopOf="@+id/dw_themaStore"
-        android:onClick="onClickThema2"/>
+        app:layout_constraintTop_toTopOf="@+id/dw_themaStore"/>
 
     <TextView
         android:id="@+id/dw_thema"
@@ -180,8 +175,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="onClickChangePwd">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/dw_tv_1"
@@ -200,8 +194,7 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dw_changePwd"
-        android:onClick="onClickLogout">
+        app:layout_constraintTop_toBottomOf="@+id/dw_changePwd">
 
         <TextView
             android:id="@+id/dw_tv_2"
@@ -220,8 +213,7 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dw_logout"
-        android:onClick="onClickTerms">
+        app:layout_constraintTop_toBottomOf="@+id/dw_logout">
 
         <TextView
 
@@ -242,8 +234,7 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dw_terms"
-        android:onClick="onClickReview">
+        app:layout_constraintTop_toTopOf="@+id/dw_terms">
 
         <TextView
             android:id="@+id/dw_tv_4"
@@ -263,8 +254,7 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dw_review"
-        android:onClick="onClickDeleteAcc">
+        app:layout_constraintTop_toBottomOf="@+id/dw_review">
 
         <TextView
             android:id="@+id/dw_tv_5"

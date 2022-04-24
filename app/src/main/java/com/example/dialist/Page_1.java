@@ -38,8 +38,6 @@ import java.util.List;
 public class Page_1 extends Fragment {
     int pagenum;
     private MyPaintView myView;
-    private DatabaseReference mDatabase;
-    public static int brushcolor = -16777216;
 
     public Page_1(int i) {
         if(num_page<i) {
@@ -60,23 +58,8 @@ public class Page_1 extends Fragment {
         myView = new MyPaintView(getActivity().getApplicationContext());
         ((LinearLayout) rootView.findViewById(R.id.paintLayout)).addView(myView);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(First.now_page)).child("BrushColors");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //HashMap<String, HashMap<String, Object>> colorInfo = (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
-                //String getData = colorInfo.get("c").toString();
-                //brushcolor=Integer.parseInt(getData);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         return rootView;
     }
-
 
     private class MyPaintView extends View {
         private Bitmap mBitmap;
@@ -88,7 +71,7 @@ public class Page_1 extends Fragment {
             super(context);
             mPath = new Path();
             mPaint = new Paint();
-            mPaint.setColor(brushcolor);
+            mPaint.setColor(First.brushcolor);
             mPaint.setAntiAlias(true);
             mPaint.setStrokeWidth(10);
             mPaint.setStyle(Paint.Style.STROKE);        }
@@ -112,21 +95,7 @@ public class Page_1 extends Fragment {
         public boolean onTouchEvent(MotionEvent event) {
             int x = (int) event.getX();
             int y = (int) event.getY();
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(First.now_page)).child("BrushColors");
-            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    //HashMap<String, HashMap<String, Object>> colorInfo = (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
-                    //String getData = colorInfo.get("c").toString();
-                    //brushcolor=Integer.parseInt(getData);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-            mPaint.setColor(brushcolor);
+            mPaint.setColor(First.brushcolor);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mPath.reset();

@@ -42,8 +42,8 @@ import java.util.Locale;
 
 public class Page_2 extends Fragment {
     int pagenum;
-
     private MyPaintView myView;
+
     ConstraintLayout thisLayout;
     float relatValX, relatValY;
     float oriX, oriY;
@@ -54,10 +54,6 @@ public class Page_2 extends Fragment {
     ViewGroup rootView;
     private View header;
     private Adapter adapter;
-
-    private DatabaseReference mDatabase;
-    //int brushcolor = -16777216;
-    int brushcolor = Page_1.brushcolor;
 
     public Page_2(String key, int currPg, int sel, Context ctx) {
         this.sel = sel;
@@ -124,21 +120,6 @@ public class Page_2 extends Fragment {
         TextView pagenumtext = (TextView) rootView.findViewById(R.id.pagenumtext);
         pagenumtext.setText(String.valueOf(pagenum));
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(First.now_page)).child("BrushColors");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //HashMap<String, HashMap<String, Object>> colorInfo = (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
-                //String getData = colorInfo.get("c").toString();
-                //brushcolor=Integer.parseInt(getData);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         return rootView;
     }
 
@@ -165,11 +146,10 @@ public class Page_2 extends Fragment {
             super(context);
             mPath = new Path();
             mPaint = new Paint();
-            mPaint.setColor(brushcolor);
+            mPaint.setColor(First.brushcolor);
             mPaint.setAntiAlias(true);
             mPaint.setStrokeWidth(10);
-            mPaint.setStyle(Paint.Style.STROKE);
-        }
+            mPaint.setStyle(Paint.Style.STROKE);        }
 
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -190,21 +170,7 @@ public class Page_2 extends Fragment {
         public boolean onTouchEvent(MotionEvent event) {
             int x = (int) event.getX();
             int y = (int) event.getY();
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child(String.valueOf(First.now_page)).child("BrushColors");
-            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    //HashMap<String, HashMap<String, Object>> colorInfo = (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
-                    //String getData = colorInfo.get("c").toString();
-                    //brushcolor=Integer.parseInt(getData);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-            mPaint.setColor(Page_1.brushcolor);
+            mPaint.setColor(First.brushcolor);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mPath.reset();
@@ -223,7 +189,6 @@ public class Page_2 extends Fragment {
             return true;
         }
     }
-
 
     public void insertItem(int sel) {
         /*switch (sel) {
