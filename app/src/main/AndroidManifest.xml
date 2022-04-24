@@ -16,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist"
         android:requestLegacyExternalStorage="true" >
+        <activity android:name=".Share"
+            android:exported="false"/>
+        <activity
+            android:name=".AllPages"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity
             android:name=".PaintView"
             android:exported="false" />
@@ -23,17 +28,8 @@
             android:name=".PaletteBarSelect"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity
-            android:name=".edit_chkbox_content"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
-        <activity
-            android:name=".editable_checkbox"
-            android:exported="false" />
-        <activity
             android:name=".Add_items"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
-        <activity
-            android:name=".AllPages"
-            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".AddNewPage"
             android:theme="@android:style/Theme.Dialog" />
