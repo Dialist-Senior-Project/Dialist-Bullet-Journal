@@ -14,13 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <TextView
-            android:id="@+id/pagetext"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:text="All Pages"/>
-
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
@@ -33,7 +26,7 @@
             android:id="@+id/screenshot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FEDCBA">
+            android:background="@drawable/grid_gray_l">
 
                 <TextView
                     android:id="@+id/sstext"

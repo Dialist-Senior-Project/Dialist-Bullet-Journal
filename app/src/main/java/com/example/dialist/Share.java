@@ -6,18 +6,28 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.view.Display;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -34,6 +44,11 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Share extends AppCompatActivity {
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     public static final int REQUEST_PERMISSION = 11;
     public static int num_page = 1;
 
@@ -48,12 +63,16 @@ public class Share extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page_capture);
 
-        // 권한 검사
-        verifyStoragePermission();
-
         // 캡처 및 공유할 뷰
         mView = findViewById(R.id.capture_layout);
         mText = findViewById(R.id.capturetext);
+
+        // 각 메뉴로부터 구분 값 받아옴
+        Intent intent = getIntent();
+        int mSelect = intent.getIntExtra("kind", 1);
+
+        // 권한 검사
+        verifyStoragePermission();
 
         // 뷰 검사
         if (mView == null) {
@@ -82,41 +101,105 @@ public class Share extends AppCompatActivity {
 
         return_intent = new Intent();
 
-        mText.setOnClickListener(view -> {
-            String tmp;
-            Bitmap tbm;
-            String stamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-
-            mView.setDrawingCacheEnabled(true);
-
-            try {
-                for (int i = 0; i < num_page; i++) {
-                    mText.setText(String.valueOf(i + 1));
-                    tmp = stamp + "(" + (i + 1) + ")";
-                    //getViewInfo();
-                    np = i;
-
-                    tbm = createBitmap();
-                    saveBitmap(tbm, tmp);
-
-                    np = i + 1;
-                }
-                displayMessage("Success: Image Capture (" + np + ")");
-            } catch (Exception e) {
-                displayMessage("Error: Image Capture (" + np + ")\n:" + e);
-            } finally {
-                mView.setDrawingCacheEnabled(false);
-                finish();
-            }
-        });
+        mText.setOnClickListener(view -> saveFile(mSelect));
     }
 
-    public Bitmap createBitmap() {
-        //mView.setDrawingCacheEnabled(true);
-        mView.buildDrawingCache();
-        Bitmap viewBitmap = Bitmap.createBitmap(mView.getDrawingCache());
-        mView.destroyDrawingCache();
-        return viewBitmap;
+    public void saveFile(int select) {
+        String tmp;
+        Bitmap tbm;
+        String stamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+        mView.setDrawingCacheEnabled(true);
+
+        switch(select) {
+            case 1: // PDF
+                try {
+                    Display display = getWindowManager().getDefaultDisplay();  // in Activity
+                    Point size = new Point();
+                    display.getRealSize(size); // or getSize(size)
+
+                    /*
+                    String filename = "/bulletjournal_" + stamp + ".pdf";
+                    File file = new File( getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/BulletJournal", filename);
+                    displayMessage(file.getAbsolutePath());
+                    */
+                    String filename = "bulletjournal_capture_" + stamp + ".pdf";
+                    File filepath = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/BulletJournal");
+                    File file = new File(filepath.getAbsolutePath(), filename);
+                    displayMessage(file.getAbsolutePath());
+
+                    if (!filepath.exists()) {
+                        filepath.mkdirs();
+                    }
+
+                    PdfDocument document = new PdfDocument();
+
+                    for (int i = 0; i < num_page; i++) {
+                        mText.setText(String.valueOf(i + 1));
+                        //getViewInfo();
+                        np = i;
+
+                        mView.buildDrawingCache();
+                        tbm = Bitmap.createBitmap(mView.getDrawingCache());
+                        mView.destroyDrawingCache();
+
+                        PdfDocument.PageInfo pi = new PdfDocument.PageInfo.Builder(size.x, size.y, i).create();
+                        PdfDocument.Page page = document.startPage(pi);
+
+                        Canvas canvas = page.getCanvas();
+                        Paint paint = new Paint();
+                        paint.setColor(Color.parseColor("#ffffff"));
+                        canvas.drawPaint(paint);
+                        paint.setColor(Color.BLUE);
+                        canvas.drawBitmap(tbm, 0,0, null);
+                        document.finishPage(page);
+                        //savePDF(tbm, tmp);
+
+                        np = i + 1;
+                    }
+                    document.writeTo(new FileOutputStream(file));
+                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + filepath.getAbsolutePath())));
+                    document.close();
+
+                    displayMessage("Success: saving PDF");
+                } catch (Exception e) {
+                    displayMessage("Error: Image Capture (" + np + ")\nFail: saving PDF\n:" + e.getMessage());
+                } finally {
+                    mView.setDrawingCacheEnabled(false);
+                    finish();
+                }
+                break;
+            case 2: // Gallary
+                try {
+                    for (int i = 0; i < num_page; i++) {
+                        mText.setText(String.valueOf(i + 1));
+                        tmp = stamp + "(" + (i + 1) + ")";
+                        //getViewInfo();
+                        np = i;
+
+                        mView.buildDrawingCache();
+                        tbm = Bitmap.createBitmap(mView.getDrawingCache());
+                        mView.destroyDrawingCache();
+
+                        if(tbm == null) { throw new Exception(); }
+                        saveBitmap(tbm, tmp);
+
+                        np = i + 1;
+                    }
+                    displayMessage("Success: Image Capture (" + np + ")");
+                } catch (Exception e) {
+                    displayMessage("Error: Image Capture (" + np + ")\n:" + e);
+                } finally {
+                    mView.setDrawingCacheEnabled(false);
+                    finish();
+                }
+                break;
+            default:
+                displayMessage("Fail: The Value is Difference");
+                //return_intent.putParcelableArrayListExtra("func", bm);
+                setResult(RESULT_CANCELED, return_intent);
+                finish();
+        }
     }
 
     public void saveBitmap(Bitmap viewBitmap, String filestamp) {
@@ -156,21 +239,25 @@ public class Share extends AppCompatActivity {
             displayMessage("Error: " + e);
         }
         //finally {
-            //mView.setDrawingCacheEnabled(false);
+        //mView.setDrawingCacheEnabled(false);
         //}
     }
 
     // 권한 확인
     public void verifyStoragePermission() {
-        int permissionRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        int permissionWrite = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 101);
+        }
+        int writePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int readPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
-        // 권한이 없으면 권한 요청
-        if (permissionRead != PackageManager.PERMISSION_GRANTED
-                || permissionWrite != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
+        if (writePermission != PackageManager.PERMISSION_GRANTED || readPermission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
         }
     }
 

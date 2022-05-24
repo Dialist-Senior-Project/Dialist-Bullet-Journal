@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dialist"
         android:requestLegacyExternalStorage="true" >
+        <activity
+            android:name=".PopupShare"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity android:name=".Share"
             android:exported="false"/>
         <activity

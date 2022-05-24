@@ -39,6 +39,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -259,7 +260,18 @@ public class First extends AppCompatActivity {
             mPager.setCurrentItem(now_page-1, true);
         });
         (findViewById(R.id.ab_share)).setOnClickListener(view -> {
-            Intent share_intent = new Intent(this, Share.class);
+            /*try {
+                BottomSheetDialog dialog = new BottomSheetDialog(getApplicationContext());
+                dialog.setContentView(R.layout.popup_share);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.create();
+                dialog.show();
+            }
+            catch(Exception e) {
+                displayMessage(e.getMessage());
+            }
+*/
+            Intent share_intent = new Intent(First.this, PopupShare.class);
             startActivity(share_intent);
         });
         (findViewById(R.id.ab_search)).setOnClickListener(view -> {
