@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AllPages extends AppCompatActivity {
     public static final int REQUEST_PERMISSION = 11;
@@ -40,6 +44,10 @@ public class AllPages extends AppCompatActivity {
     private GridView gridview = null;
     private GridViewAdapter adapter = null;
     private Intent return_intent;
+
+    private TimerTask mTimerTask;
+    private Timer mTimer = new Timer();
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +126,57 @@ public class AllPages extends AppCompatActivity {
                 findViewById(R.id.screenshot).setVisibility(View.GONE);
             }
         });
+
+        mTimerTask = createTimerTask();
+        mTimer.schedule(mTimerTask, 100, 1000);
+    }
+
+    final Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+            Bitmap tbm;
+
+            mView.setDrawingCacheEnabled(true);
+
+            try {
+                for (int i = 0; i < num_page; i++) {
+                    mText.setText(String.valueOf(i + 1));
+                    //getViewInfo();
+                    np = i;
+                    tbm = createBitmap();
+                    adapter.addItem(new PagesInfo(String.valueOf(i + 1), tbm));
+                    np = i + 1;
+                }
+                // 리스트뷰에 Adapter 설정
+                gridview.setAdapter(adapter);
+
+                displayMessage("Success: Image Capture (" + np + ")");
+                mView.setDrawingCacheEnabled(false);
+
+            } catch (Exception e) {
+                displayMessage("Error: Image Capture (" + np + ")\n:" + e);
+                setResult(RESULT_CANCELED, return_intent);
+                mView.setDrawingCacheEnabled(false);
+                finish();
+            } finally {
+                findViewById(R.id.screenshot).setVisibility(View.GONE);
+            }
+        }
+    };
+
+    private TimerTask createTimerTask() {
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                count = count + 1;
+
+                if (mTimerTask != null && count == 1) {
+                    mTimerTask.cancel();
+                    Message msg = handler.obtainMessage();
+                    handler.sendMessage(msg);
+                }
+            }
+        };
+        return timerTask;
     }
 
     public Bitmap createBitmap() {

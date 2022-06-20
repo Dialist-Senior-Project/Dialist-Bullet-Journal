@@ -172,6 +172,11 @@ public class First extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+        // 캡처 및 공유하기
+        mView = (LinearLayout) findViewById(R.id.capture_layout);
+        verifyStoragePermission(this);
+
+        // 드로어 메뉴
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer = (View) findViewById(R.id.drawer);
 
@@ -181,8 +186,6 @@ public class First extends AppCompatActivity {
         mActionBar.setDisplayHomeAsUpEnabled(false);
 
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
-        // 드로어 Close
         mDrawerLayout.setDrawerListener(listener);
         mDrawer.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -191,18 +194,13 @@ public class First extends AppCompatActivity {
             }
         });
 
-        // 캡처 및 공유하기
-        mView = (LinearLayout) findViewById(R.id.capture_layout);
-        verifyStoragePermission(this);
-
-        // 툴바 메뉴
+        // ********** 툴바 메뉴 **********
         // basic
         (findViewById(R.id.ab_bookmark)).setOnClickListener(view -> {
-
         });
         (findViewById(R.id.ab_star)).setOnClickListener(view -> {
-
         });
+
         // readmode
         (findViewById(R.id.ab_menu)).setOnClickListener(view -> {
             thisLayout.setVisibility(View.GONE);
@@ -261,20 +259,20 @@ public class First extends AppCompatActivity {
             mPager.setCurrentItem(now_page-1, true);
         });
 
-        //아이템 추가 아이콘 클릭
+        // 아이템 추가 아이콘 클릭
         (findViewById(R.id.ab_add)).setOnClickListener(view -> {
             Intent intent = new Intent(this, Add_items.class);
             startActivity(intent);
         });
 
-        //모든 페이지 보는 버튼
+        // 모든 페이지 보는 버튼
         (findViewById(R.id.ab_allpage)).setOnClickListener(view -> {
             Intent allpages_intent = new Intent(First.this, AllPages.class);
             allpages_intent.putExtra("pageinfo", num_page);
             resultLauncher.launch(allpages_intent);
         });
 
-        // 드로어 메뉴
+        // ********** 드로어 메뉴 **********
         (findViewById(R.id.dw_back)).setOnClickListener(view -> {
             mDrawerLayout.closeDrawers();
             thisLayout.setVisibility(View.VISIBLE);

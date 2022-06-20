@@ -15,6 +15,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.view.Display;
@@ -42,6 +44,8 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Share extends AppCompatActivity {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -57,6 +61,11 @@ public class Share extends AppCompatActivity {
     private LinearLayout mView;
     private DatabaseReference mDatabase;
     private Intent return_intent;
+    int mSelect = -1;
+
+    private TimerTask mTimerTask;
+    private Timer mTimer = new Timer();
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +78,7 @@ public class Share extends AppCompatActivity {
 
         // 각 메뉴로부터 구분 값 받아옴
         Intent intent = getIntent();
-        int mSelect = intent.getIntExtra("kind", 1);
+        mSelect = intent.getIntExtra("kind", 1);
 
         // 권한 검사
         verifyStoragePermission();
@@ -102,6 +111,31 @@ public class Share extends AppCompatActivity {
         return_intent = new Intent();
 
         mText.setOnClickListener(view -> saveFile(mSelect));
+
+        mTimerTask = createTimerTask();
+        mTimer.schedule(mTimerTask, 100, 1000);
+    }
+
+    final Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            saveFile(mSelect);
+        }
+    };
+
+    private TimerTask createTimerTask() {
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                count = count + 1;
+
+                if (mTimerTask != null && count == 1) {
+                    mTimerTask.cancel();
+                    Message msg = handler.obtainMessage();
+                    handler.sendMessage(msg);
+                }
+            }
+        };
+        return timerTask;
     }
 
     public void saveFile(int select) {
