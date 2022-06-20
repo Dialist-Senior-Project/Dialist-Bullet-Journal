@@ -50,6 +50,7 @@ public class PaletteBarSelect extends Activity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //DB에 저장된 색 불러오기
                 Iterator<DataSnapshot> child = snapshot.getChildren().iterator();
                 while (child.hasNext()) {
                     switch(cnt){
@@ -93,6 +94,7 @@ public class PaletteBarSelect extends Activity {
             }
         });
 
+        //색 선택 시 팔레트에 저장
         PaletteBar paletteBar = findViewById(R.id.paletteBar);
         paletteBar.setListener(new PaletteBar.PaletteBarListener() {
             @Override
@@ -127,6 +129,7 @@ public class PaletteBarSelect extends Activity {
             }
         });
 
+        //선택된 팔레트 색으로 펜 색 지정
         button1.setOnClickListener(view -> {
             clickbutton=1;
             color=color1;

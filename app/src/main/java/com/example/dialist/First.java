@@ -93,35 +93,6 @@ public class First extends AppCompatActivity {
     int cnt = 0;
     public static int brushcolor = -16777216;
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        int resint = data.getIntExtra("sel", 0);
-        Toast.makeText(getApplicationContext(), "sel == "+resint, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(getApplicationContext(), "pager == "+mPager.getCurrentItem(), Toast.LENGTH_SHORT).show();
-
-        //Long id = pagerAdapter.getItemId(1);
-        thisLayout = findViewById(R.id.t_layout);
-
-        //mPager.getId()
-        FragmentManager fm = getSupportFragmentManager();
-        //Page_2 pg = (Page_2) fm.findFragmentByTag("page2");
-        //Page_2 pg = new Page_2("k", 0);
-        fm.beginTransaction()
-                //.replace(mPager.getCurrentItem(), pg)
-                //.add(pg, "page2")
-                .setReorderingAllowed(true)
-                .addToBackStack(null)
-                .commit();
-        //getSupportFragmentManager().executePendingTransactions();
-        //fm.executePendingTransactions();
-
-
-        //pg.createEditbox();
-        createEditbox();
-    }*/
-
     static int draw = 0;
 
     @Override
@@ -155,8 +126,7 @@ public class First extends AppCompatActivity {
         enEmail = email.replace(".", ",");
         DB(enEmail, 1, "Notthing", 0, 0, 0, 0, "blank");
 
-        //DB에 저장된 데이터를 불러오자.
-        //일단 먼저 페이지가 몇장인지
+        //DB에 저장된 데이터를 불러와 페이지 수를 구한다.
         mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(enEmail).child("Page");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -173,7 +143,7 @@ public class First extends AppCompatActivity {
             }
         });
 
-        //펜색 가져오기
+        //DB에 저장된 펜색 가져오기
         mDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(First.enEmail).child("BrushColors");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -251,8 +221,6 @@ public class First extends AppCompatActivity {
             findViewById(R.id.ab_editmode).setVisibility(View.GONE);
             findViewById(R.id.ab_share).setVisibility(View.GONE);
 
-            //findViewById(R.id.button3).setEnabled(true);
-
             pagerAdapter = new PageAdapter(this, num_page, 1);
             mPager.setAdapter(pagerAdapter);
             mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
@@ -260,17 +228,6 @@ public class First extends AppCompatActivity {
             mPager.setCurrentItem(now_page-1, true);
         });
         (findViewById(R.id.ab_share)).setOnClickListener(view -> {
-            /*try {
-                BottomSheetDialog dialog = new BottomSheetDialog(getApplicationContext());
-                dialog.setContentView(R.layout.popup_share);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.create();
-                dialog.show();
-            }
-            catch(Exception e) {
-                displayMessage(e.getMessage());
-            }
-*/
             Intent share_intent = new Intent(First.this, PopupShare.class);
             startActivity(share_intent);
         });
@@ -304,20 +261,13 @@ public class First extends AppCompatActivity {
             mPager.setCurrentItem(now_page-1, true);
         });
 
-
+        //아이템 추가 아이콘 클릭
         (findViewById(R.id.ab_add)).setOnClickListener(view -> {
-            /*Page_2 pg = (Page_2) getSupportFragmentManager().findFragmentByTag("tag_page2");
-            if(pg == null)
-                Toast.makeText(getApplicationContext(), "null", Toast.LENGTH_SHORT).show();
-            else
-                pg.createEditbox();*/
-            //BlankFragment b = BlankFragment.getInstance();
-            //b.show(getSupportFragmentManager(), BlankFragment.TAG_EVENT_DIALOG);
             Intent intent = new Intent(this, Add_items.class);
             startActivity(intent);
         });
 
-
+        //모든 페이지 보는 버튼
         (findViewById(R.id.ab_allpage)).setOnClickListener(view -> {
             Intent allpages_intent = new Intent(First.this, AllPages.class);
             allpages_intent.putExtra("pageinfo", num_page);
@@ -393,12 +343,11 @@ public class First extends AppCompatActivity {
         (findViewById(R.id.dw_switch)).setOnClickListener(view -> {
         });
 
-        //손으로 그림 그리기(그림판)
+        //손으로 그림 그리기(그림판) 끈다.
         (findViewById(R.id.ab_drawbrush1)).setOnClickListener(view -> {
             draw=0;
             mPager.setUserInputEnabled(true);
             mPager.setCurrentItem(now_page-1, true);
-            Toast.makeText(First.this, "그림판 끔", Toast.LENGTH_SHORT).show();
             findViewById(R.id.ab_drawbrush1).setVisibility(View.GONE);
             findViewById(R.id.ab_brush_color).setVisibility(View.GONE);
             findViewById(R.id.ab_brush_eraser).setVisibility(View.GONE);
@@ -408,11 +357,11 @@ public class First extends AppCompatActivity {
             Toast.makeText(First.this, "now_page"+now_page, Toast.LENGTH_SHORT).show();
         });
 
+        //그림판을 킨다.
         (findViewById(R.id.ab_drawbrush2)).setOnClickListener(view -> {
             draw=1;
             mPager.setUserInputEnabled(false);
             mPager.setCurrentItem(now_page-1, false);
-            Toast.makeText(First.this, "그림판 킴", Toast.LENGTH_SHORT).show();
             findViewById(R.id.ab_drawbrush1).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_brush_color).setVisibility(View.VISIBLE);
             findViewById(R.id.ab_brush_eraser).setVisibility(View.VISIBLE);
@@ -422,6 +371,7 @@ public class First extends AppCompatActivity {
             Toast.makeText(First.this, "now_page"+now_page, Toast.LENGTH_SHORT).show();
         });
 
+        //펜색 선택
         (findViewById(R.id.ab_brush_color)).setOnClickListener(view -> {
             Intent intent = new Intent(First.this, PaletteBarSelect.class);
             startActivity(intent);
@@ -453,9 +403,7 @@ public class First extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 // 기존 페이지 내용 삭제
-                //thisLayout.removeAllViews();
                 // 해당 페이지 저장된 내용 불러오기
-
                 if (positionOffsetPixels == 0) {
                     mPager.setCurrentItem(position);
                     if (firsttoast != 0 && draw==0) {
@@ -467,7 +415,7 @@ public class First extends AppCompatActivity {
                     }
                     firsttoast = 1;
                     if (position >= (num_page)) {
-                        //새 페이지 추가 하실??
+                        //새 페이지 추가를 할건지 질문하는 다이얼로그 창 띄우기
                         Intent intent = new Intent(First.this, AddNewPage.class);
                         intent.putExtra("state", 1);
                         mStartForResult.launch(intent);
@@ -608,42 +556,6 @@ public class First extends AppCompatActivity {
 
         linearLayout.setClickable(true);
         linearLayout.setOnTouchListener(touchListener);
-        /*editText.setClickable(true);
-        editText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    ((First)First.mContext).mPager.setUserInputEnabled(false);
-
-                    relatValX = event.getX();
-                    relatValY = event.getY();
-                    checkBox.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            longTch = true;
-                            return true;
-                        }
-                    });
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    longTch = false;
-                    ((First)First.mContext).mPager.setUserInputEnabled(true);
-                }
-
-                if (longTch) {
-                    if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                        oriX = event.getRawX() - relatValX;
-                        oriY = event.getRawY() - (relatValY + v.getHeight());
-                        if (oriX % 50 < 25) {
-                            linearLayout.setX(oriX - (oriX % 50));
-                        }
-                        if (oriY % 50 < 25) {
-                            linearLayout.setY(oriY - (oriY % 50));
-                        }
-                    }
-                }
-                return false;
-            }
-        });*/
     }
 
     public void createPaint() {
@@ -758,6 +670,7 @@ public class First extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
     }
 
+    //새 페이지 추가 시 동작하여 DB에 페이지 정보를 저장한다.
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {

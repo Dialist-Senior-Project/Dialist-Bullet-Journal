@@ -143,22 +143,12 @@ public class PaintView extends AppCompatActivity {
                 bitmap = linear_draw.getDrawingCache();
                 FileOutputStream fos;
 
-                /*if (bitmap == null) {
-                    findViewById(R.id.btnClear).setBackgroundColor(Color.rgb(255,0,0));
-                } else {
-                    findViewById(R.id.btnClear).setBackgroundColor(Color.rgb(0,0,255));
-                }*/
-
                 String filePath = getFilesDir().getPath();
                 String s = filePath + "/capture.png";
                 String s2 = "/data/data/dialist";
-                //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG);
                 TextView tv = findViewById(R.id.textView4);
 
-                //m.drawbitmap();
-
                 try {
-                    //fos = new FileOutputStream(Environment.getExternalStorageDirectory().toString() + "/capture1.png");
                     fos = new FileOutputStream(s);
                     tv.setText(s);
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
@@ -181,39 +171,6 @@ public class PaintView extends AppCompatActivity {
         });
 
         linear_draw.addView(m);
-
-
-        /*findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //View v = findViewById(R.id.linearDraw);
-                linear_draw.buildDrawingCache();
-                Bitmap bitmap = linear_draw.getDrawingCache();
-                FileOutputStream fos;
-
-                //File fileFile = getFilesDir();
-                //String getFile = fileFile.getPath();
-                String filePath = getFilesDir().getPath();
-
-                String s = filePath + "/capture.png";
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG);
-
-                try {
-                    //fos = new FileOutputStream(Environment.getExternalStorageDirectory().toString() + "/capture1.png");
-                    fos = new FileOutputStream(filePath + "/capture.png");
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //
-            }
-        });*/
     }
 }
 
